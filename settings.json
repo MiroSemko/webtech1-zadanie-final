@@ -1,0 +1,77 @@
+{
+  "difficulty": [
+    {
+      "lahka": {"questions": [
+        {
+          "question": "Ake je hlavne mesto mirovho empire?",
+          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
+          "correct": 0
+        },{
+          "question": "",
+          "answers": ""
+        },{
+          "question": "",
+          "answers": ""
+        },{
+          "question": "",
+          "answers": ""
+        },{
+          "question": "",
+          "answers": ""
+        }
+      ],
+        "timer": 45
+      }
+    },
+    {
+      "stredna": {"questions": [
+        {
+          "question": "Ake je hlavne mesto mirovho empire?",
+          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
+          "correct": 0
+        },{
+          "question": "",
+          "answers": ""
+        },{
+          "question": "",
+          "answers": ""
+        },{
+          "question": "",
+          "answers": ""
+        },{
+          "question": "",
+          "answers": ""
+        }
+      ],
+        "timer": 30
+      }
+    },
+    {
+      "tazka": {"questions": [
+        {
+          "question": "Ake je hlavne mesto mirovho empire?",
+          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
+          "correct": "0"
+        },{
+          "question": "Ake je hlavne mesto mirovho empire?",
+          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
+          "correct": "0"
+        },{
+          "question": "Ake je hlavne mesto mirovho empire?",
+          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
+          "correct": "0"
+        },{
+          "question": "Ake je hlavne mesto mirovho empire?",
+          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
+          "correct": "0"
+        },{
+          "question": "Ake je hlavne mesto mirovho empire?",
+          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
+          "correct": "0"
+        }
+      ],
+        "timer": 15
+      }
+    }
+  ]
+}

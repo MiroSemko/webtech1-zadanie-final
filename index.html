@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>PWA Game</title>
+    <!--    <link rel="manifest" href="manifest.json"> //PWA-->
+    <link rel="stylesheet" href="style.css">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container h-100" id="game-container">
+    <div class="game-wrapper h-100">
+        <div class="game-info-div h-20" id="info"></div>
+        <div class="question-div h-40 justify-content-center" style="text-align: center;">
+            <p id="question">Otazocka mojko?????????</p>
+            <div class="answers col-md-6 col-sm-12" style="border: 1px dashed navy"></div>
+        </div>
+        <div class="timer-div h-10">
+            <div class="progress-bar" style="width: 0;"></div>
+        </div>
+        <div class="answers h-30">
+            <div class="row d-flex justify-content-between h-50">
+                <div class="col-4">
+                    <div class="answer" id="answer0">dsa</div>
+                </div>
+                <div class="col-4">
+                    <div class="answer" id="answer1">dsadsa</div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-between h-50">
+                <div class="col-4">
+                    <div class="answer" id="answer2">dsadsa</div>
+                </div>
+                <div class="col-4">
+                    <div class="answer" id="answer3">dsasad</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="controls-container">
+    <h3>QUIZ ME!</h3>
+
+    <p id="result"></p>
+    <button class="start" id="start-easy" value="lahka">Ľahká</button>
+    <button class="start" id="start-medium" value="stredna">Stredná</button>
+    <button class="start" id="start-hard" value="tazka">Tažká</button>
+</div>
+
+
+<script src="game.js"></script>
+</body>
+</html>
