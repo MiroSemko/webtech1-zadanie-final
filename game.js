@@ -267,6 +267,13 @@ async function loadGame(difficulties, current) {
 const progressBar = document.querySelector('.progress-bar');
 
 function displayQuestion(i) {
+    let answerarea = document.getElementById("answer-select");
+
+    if (answerarea.hasChildNodes()) {
+        let existingTile = answerarea.firstChild;
+        dragContainer.appendChild(existingTile)
+    }
+
     document.getElementById("question").style.color = "black";
     document.getElementById("question").innerText = questions[i].question;
     document.getElementById("answer0").innerText = questions[i].answers[0];
