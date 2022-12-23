@@ -51,6 +51,7 @@ img {
     border-radius: 80px / 30px;
 }
 .option {
+    margin: auto;
     border: 2px solid goldenrod;
     border-radius: 80px / 30px;
     text-align: center;

@@ -12,44 +12,24 @@
 
 
 //Initial References
-let draggableObjects;
-let dropPoints;
+// let draggableObjects;
+// let dropPoints;
+
 const startEasy = document.getElementById("start-easy");
 const startMedium = document.getElementById("start-medium");
 const startHard = document.getElementById("start-hard");
 const buttons = [startEasy, startMedium, startHard];
-const result = document.getElementById("result");
+let totalPoints = 0;
+let maxPoints;
+
+// const result = document.getElementById("result");
 const controls = document.querySelector(".controls-container");
-const dragContainer = document.querySelector(".draggable-objects");
-const dropContainer = document.querySelector(".drop-points");
+const dragContainer = document.querySelector(".answers-div");
+const dropContainer = document.querySelector(".answer");
 
 
 let answerObjects;
 let currentDiff;
-
-
-const data = [
-    "belgium",
-    "bhutan",
-    "brazil",
-    "china",
-    "cuba",
-    "ecuador",
-    "georgia",
-    "germany",
-    "hong-kong",
-    "india",
-    "iran",
-    "myanmar",
-    "norway",
-    "spain",
-    "sri-lanka",
-    "sweden",
-    "switzerland",
-    "united-states",
-    "uruguay",
-    "wales",
-];
 
 let deviceType = "";
 let initialX = 0,
@@ -70,19 +50,6 @@ const isTouchDevice = () => {
     }
 };
 
-let count = 0;
-
-//Random value from Array
-const randomValueGenerator = () => {
-    return data[Math.floor(Math.random() * data.length)];
-};
-
-//Win Game Display
-const stopGame = () => {
-    controls.classList.remove("hide");
-    startButton.classList.remove("hide");
-};
-
 //Drag & Drop Functions
 function dragStart(e) {
     if (isTouchDevice()) {
@@ -93,7 +60,8 @@ function dragStart(e) {
         currentElement = e.target;
     } else {
         //For non touch devices set data to be transfered
-        e.dataTransfer.setData("text", e.target.id);
+        window.e.dataTransfer.setData("text", e.target.id);
+        window.console.log(e.getData("text"));
     }
 }
 
@@ -123,31 +91,31 @@ const touchMove = (e) => {
 const drop = (e) => {
     e.preventDefault();
     //For touch screen
-    if (isTouchDevice()) {
-        moveElement = false;
-        //Select country name div using the custom attribute
-        const currentDrop = document.querySelector(`div[data-id='${e.target.id}']`);
-        //Get boundaries of div
-        const currentDropBound = currentDrop.getBoundingClientRect();
-        //if the position of flag falls inside the bounds of the countru name
-        if (
-            initialX >= currentDropBound.left &&
-            initialX <= currentDropBound.right &&
-            initialY >= currentDropBound.top &&
-            initialY <= currentDropBound.bottom
-        ) {
-            currentDrop.classList.add("dropped");
-            //hide actual image
-            currentElement.classList.add("hide");
-            currentDrop.innerHTML = ``;
-            //Insert new img element
-            currentDrop.insertAdjacentHTML(
-                "afterbegin",
-                `<img src= "${currentElement.id}.png">`
-            );
-            count += 1;
-        }
-    } else {
+    // if (isTouchDevice()) {
+    //     moveElement = false;
+    //     //Select country name div using the custom attribute
+    //     const currentDrop = document.querySelector(`div[data-id='${e.target.id}']`);
+    //     //Get boundaries of div
+    //     const currentDropBound = currentDrop.getBoundingClientRect();
+    //     //if the position of flag falls inside the bounds of the countru name
+    //     if (
+    //         initialX >= currentDropBound.left &&
+    //         initialX <= currentDropBound.right &&
+    //         initialY >= currentDropBound.top &&
+    //         initialY <= currentDropBound.bottom
+    //     ) {
+    //         currentDrop.classList.add("dropped");
+    //         //hide actual image
+    //         currentElement.classList.add("hide");
+    //         currentDrop.innerHTML = ``;
+    //         //Insert new img element
+    //         currentDrop.insertAdjacentHTML(
+    //             "afterbegin",
+    //             `<img src= "${currentElement.id}.png">`
+    //         );
+    //         count += 1;
+    //     }
+    // } else {
         //Access data
         const draggedElementData = e.dataTransfer.getData("text");
         //Get custom attribute value
@@ -168,50 +136,8 @@ const drop = (e) => {
             );
             count += 1;
         }
-    }
-    //Win
-    if (count == 3) {
-        result.innerText = `You Won!`;
-        stopGame();
-    }
+    // }
 };
-
-//Creates flags and countries
-// const creator = () => {
-//     dragContainer.innerHTML = "";
-//     dropContainer.innerHTML = "";
-//     let randomData = [];
-//     //for string random values in array
-//     for (let i = 1; i <= 3; i++) {
-//         let randomValue = randomValueGenerator();
-//         if (!randomData.includes(randomValue)) {
-//             randomData.push(randomValue);
-//         } else {
-//             //If value already exists then decrement i by 1
-//             i -= 1;
-//         }
-//     }
-//     for (let i of randomData) {
-//         const flagDiv = document.createElement("div");
-//         flagDiv.classList.add("draggable-image");
-//         flagDiv.setAttribute("draggable", true);
-//         if (isTouchDevice()) {
-//             flagDiv.style.position = "absolute";
-//         }
-//         flagDiv.innerHTML = `<img src="${i}.png" id="${i}">`;
-//         dragContainer.appendChild(flagDiv);
-//     }
-//     //Sort the array randomly before creating country divs
-//     randomData = randomData.sort(() => 0.5 - Math.random());
-//     for (let i of randomData) {
-//         const countryDiv = document.createElement("div");
-//         countryDiv.innerHTML = `<div class='countries' data-id='${i}'>
-//     ${i.charAt(0).toUpperCase() + i.slice(1).replace("-", " ")}
-//     </div>
-//     `;
-//         dropContainer.appendChild(countryDiv);
-//     }
-// };
 
 buttons.forEach((element) => {
     element.addEventListener("click", function () {
@@ -220,18 +146,13 @@ buttons.forEach((element) => {
         controls.classList.add("hide");
         element.classList.add("hide");
 
-        //This will wait for creator to create the images and then move forward
-        // await creator();
-
         fetch('./settings.json')
             .then((response) => response.json())
-            .then((json) => loadGame(json.difficulty, element.value));
-        document.getElementById("info").innerHTML = element.innerText;
-        document.getElementById("info").value = element.value;
+            .then((json) => loadSettings(json.difficulty, element.value));
     })
 });
 
-var clickedElementIndex;
+var clickedElementIndex = 5;
 
 const clickCheck = (e) => {
     clickedElementIndex = e.target.id.slice(-1);
@@ -242,45 +163,41 @@ const clickCheck = (e) => {
 var questions = [];
 
 async function loadGame(difficulties, current) {
-    console.log(current);
     currentDiff = current;
-    console.log(currentDiff);
     let q;
     let t;
     switch (current) {
         case "lahka":
             q = difficulties[0].lahka.questions;
             t = difficulties[0].lahka.timer;
+            document.getElementById("difficulty").innerText = "Ľahká";
             break;
         case "stredna":
             q = difficulties[1].stredna.questions;
             t = difficulties[1].stredna.timer;
+            document.getElementById("difficulty").innerText = "Stredná";
             break;
         case "tazka":
             q = difficulties[2].tazka.questions;
             t = difficulties[2].tazka.timer;
+            document.getElementById("difficulty").innerText = "Ťažká";
             break;
     }
     for (let i = 0; i < q.length; i++) {
         questions.push(q[i]);
     }
-
-    // count = 0;
+    maxPoints = questions.length;
 
     answerObjects = document.querySelectorAll(".option");
-
-    // answerObjects.forEach((element) => {
-    //     element.addEventListener("click", clickCheck);
-    // })
 
     answerObjects.forEach((element) => {
         element.addEventListener("click", clickCheck);
 
-        // element.addEventListener("dragstart", dragStart);
-        // //for touch screen
-        // element.addEventListener("touchstart", dragStart);
-        // element.addEventListener("touchend", drop);
-        // element.addEventListener("touchmove", touchMove);
+        element.addEventListener("dragstart", dragStart);
+        //for touch screen
+        element.addEventListener("touchstart", dragStart);
+        element.addEventListener("touchend", drop);
+        element.addEventListener("touchmove", touchMove);
     });
     document.getElementById("answer-select").addEventListener("dragover", dragOver);
     document.getElementById("answer-select").addEventListener("drop", drop);
@@ -292,21 +209,6 @@ async function loadGame(difficulties, current) {
 
 const progressBar = document.querySelector('.progress-bar');
 
-// let timerCount = 60;
-//
-// // call this questions.length times
-// const countdown = setInterval(() => {
-//     timerCount--;
-//     progressBar.style.width = (timerCount / 60) * 100 + '%';
-//
-//     if (timerCount === 0) {
-//         clearInterval(countdown);
-//
-//         // check if correct answer
-//
-//     }
-// }, 1000);
-
 function displayQuestion(i) {
     document.getElementById("question").style.color = "black";
     document.getElementById("question").innerText = questions[i].question;
@@ -316,18 +218,56 @@ function displayQuestion(i) {
     document.getElementById("answer3").innerText = questions[i].answers[3];
 }
 
+
+const questionArea = document.getElementById("question")
+const answerArea = document.getElementById("answer-area")
 function checkAnswer(i) {
+    console.log(questions)
+    console.log(i)
+    console.log(questions[i]);
+    console.log(questions[i].correct);
     if (clickedElementIndex === questions[i].correct) { //if last char of ID of selected element === questions[i].correct
         console.log("correct");
+        questionArea.innerText = "Spravne";
     } else { //if wrong
-        console.log("wrong")
+        console.log("wrong");
+        questionArea.innerText = "Nespravne";
+        totalPoints = 0;
+        document.getElementById("score").innerText = totalPoints + "/5";
     }
+    questions.splice(i, 1);
+    if (questions.length === 0) {
+        document.getElementById("repeat").style.display = "";
+        return;
+    }
+    document.getElementById("next").style.display = "";
 }
+
+document.getElementById("next").addEventListener("click", function () {
+    handleGame(maxTime);
+})
+document.getElementById("repeat").addEventListener("click", function () {
+    loadGame(dif,cur);
+})
+
+document.getElementById("new-game").addEventListener("click", function () {
+    open("./index.html", "_self");
+})
+
+document.getElementById("help").addEventListener("click", function () {
+    console.log("help")
+})
 
 function handleGame(timerCount) {
     //generate all Qs from set difficulty also cache, if cached or empty dont generate
+    document.getElementById("new-game").style.display = "none";
+    document.getElementById("next").style.display = "none";
+    document.getElementById("repeat").style.display = "none";
     maxTime = timerCount;
     progressBar.style.width = "100%";
+
+    document.getElementById("score").innerText = totalPoints + "/5";
+
 
     let i = Math.floor(Math.random() * questions.length);
     displayQuestion(i);
@@ -338,68 +278,9 @@ function handleGame(timerCount) {
         if (timerCount === 0) {
             clearInterval(countdown);
             checkAnswer(i);
-            // check if correct answer and ++ correct answers
-
         }
     }, 1000);
-    questions.splice(i, 1);
-
-    // setInterval(function () {
-    //     console.log(questions)
-    //     console.log("setting Qs");
-    //     //let i from questions.length() from cached
-    //
-    //     let i = Math.floor(Math.random() * questions.length);
-    //     displayQuestion(i);
-    //
-    //
-    // }, timerCount*1000)
 }
-
-//Start Game
-// startEasy.addEventListener(
-//     "click", startGame
-// );
-// startMedium.addEventListener(
-//     "click", startGame
-// );
-// startHard.addEventListener(
-//     "click", startGame
-// );
-
-// startButtons = document.querySelectorAll(".start");
-//
-// //Events
-// startButtons.forEach((element) => {
-//     element.addEventListener("click", (startGame = async () => {
-//         currentElement = "";
-//         controls.classList.add("hide");
-//         startButton.classList.add("hide");
-//         //This will wait for creator to create the images and then move forward
-//         // await creator();
-//
-//         fetch('./settings.json')
-//             .then((response) => response.json())
-//             .then((json) => loadGame(json.difficulty,event.srcElement.innerHTML.toLowerCase()));
-//
-//
-//
-//         count = 0;
-//         dropPoints = document.querySelectorAll(".countries");
-//         draggableObjects = document.querySelectorAll(".draggable-image");
-//         //Events
-//         draggableObjects.forEach((element) => {
-//             element.addEventListener("dragstart", dragStart);
-//             //for touch screen
-//             element.addEventListener("touchstart", dragStart);
-//             element.addEventListener("touchend", drop);
-//             element.addEventListener("touchmove", touchMove);
-//         });
-//         dropPoints.forEach((element) => {
-//             element.addEventListener("dragover", dragOver);
-//             element.addEventListener("drop", drop);
-//         });
-//     })};
 
 
 

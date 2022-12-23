@@ -17,33 +17,28 @@
 
 <div class="container h-100" id="game-container">
     <div class="game-wrapper h-100">
-        <div class="game-info-div h-20" id="info"></div>
-        <div class="question-div h-40 justify-content-center" style="text-align: center;">
+        <div class="game-info-div h-10 row" id="info">
+            <div class="col-2" id="score"></div>
+            <div class="col-4 offset-2 text-center" id="difficulty"></div>
+            <button id="help" style="position: absolute; right: 15px; top: 43px">?</button>
+        </div>
+        <div class="question-div h-30 justify-content-center" style="text-align: center;">
             <p id="question"></p>
             <div class="row">
                 <div class="answer col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-10 offset-1" id="answer-select" style="border: 1px dashed navy"></div>
             </div>
+            <button class="mt-3 w-25" id="next" style="display: none">Pokracovat</button>
+            <button class="mt-3 w-25" id="repeat" style="display: none">Pokracovat</button>
+            <button class="mt-3 w-25" id="new-game" style="display: none">Nova hra</button>
         </div>
         <div class="timer-div h-10">
             <div class="progress-bar" style="width: 0;"></div>
         </div>
-        <div class="answers-div h-30">
-            <div class="row d-flex justify-content-between h-50">
-                <div class="col-4">
-                    <div class="option" id="answer0"></div>
-                </div>
-                <div class="col-4">
-                    <div class="option" id="answer1"></div>
-                </div>
-            </div>
-            <div class="row d-flex justify-content-between h-50">
-                <div class="col-4">
-                    <div class="option" id="answer2"></div>
-                </div>
-                <div class="col-4">
-                    <div class="option" id="answer3"></div>
-                </div>
-            </div>
+        <div class="answers-div row d-flex justify-content-around h-50 flex-wrap">
+            <div class="option col-4 offset-1" id="answer0"></div>
+            <div class="option col-4 offset-1" id="answer1"></div>
+            <div class="option col-4 offset-1" id="answer2"></div>
+            <div class="option col-4 offset-1" id="answer3"></div>
         </div>
     </div>
 </div>
