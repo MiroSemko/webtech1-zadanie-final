@@ -118,7 +118,7 @@ const drop = (e) => {
     }
 
 
-    e.target.appendChild(piece);
+    answerarea.appendChild(piece);
     // piece.classList.add("dragged")
 
 
