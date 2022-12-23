@@ -50,19 +50,24 @@ const isTouchDevice = () => {
     }
 };
 
+// //Drag & Drop Functions
+// function dragStart(e) {
+//     if (isTouchDevice()) {
+//         initialX = e.touches[0].clientX;
+//         initialY = e.touches[0].clientY;
+//         //Start movement for touch
+//         moveElement = true;
+//         currentElement = e.target;
+//     } else {
+//         //For non touch devices set data to be transfered
+//         e.dataTransfer.setData("text/plain", e.target.id);
+//         // console.log(e.getData("text"));
+//         // window.console.log(e.getData("text"));
+//     }
+// }
 //Drag & Drop Functions
 function dragStart(e) {
-    if (isTouchDevice()) {
-        initialX = e.touches[0].clientX;
-        initialY = e.touches[0].clientY;
-        //Start movement for touch
-        moveElement = true;
-        currentElement = e.target;
-    } else {
-        //For non touch devices set data to be transfered
-        window.e.dataTransfer.setData("text", e.target.id);
-        window.console.log(e.getData("text"));
-    }
+    e.dataTransfer.setData("text/plain", e.target.id);
 }
 
 //Events fired on the drop target
@@ -71,73 +76,116 @@ function dragOver(e) {
 }
 
 //For touchscreen movement
-const touchMove = (e) => {
-    if (moveElement) {
-        e.preventDefault();
-        let newX = e.touches[0].clientX;
-        let newY = e.touches[0].clientY;
-        let currentSelectedElement = document.getElementById(e.target.id);
-        currentSelectedElement.parentElement.style.top =
-            currentSelectedElement.parentElement.offsetTop - (initialY - newY) + "px";
-        currentSelectedElement.parentElement.style.left =
-            currentSelectedElement.parentElement.offsetLeft -
-            (initialX - newX) +
-            "px";
-        initialX = newX;
-        initialY - newY;
-    }
-};
+// const touchMove = (e) => {
+//     if (moveElement) {
+//         e.preventDefault();
+//         let newX = e.touches[0].clientX;
+//         let newY = e.touches[0].clientY;
+//         let currentSelectedElement = document.getElementById(e.target.id);
+//         currentSelectedElement.parentElement.style.top =
+//             currentSelectedElement.parentElement.offsetTop - (initialY - newY) + "px";
+//         currentSelectedElement.parentElement.style.left =
+//             currentSelectedElement.parentElement.offsetLeft -
+//             (initialX - newX) +
+//             "px";
+//         initialX = newX;
+//         initialY - newY;
+//     }
+// };
+
 
 const drop = (e) => {
     e.preventDefault();
-    //For touch screen
-    // if (isTouchDevice()) {
-    //     moveElement = false;
-    //     //Select country name div using the custom attribute
-    //     const currentDrop = document.querySelector(`div[data-id='${e.target.id}']`);
-    //     //Get boundaries of div
-    //     const currentDropBound = currentDrop.getBoundingClientRect();
-    //     //if the position of flag falls inside the bounds of the countru name
-    //     if (
-    //         initialX >= currentDropBound.left &&
-    //         initialX <= currentDropBound.right &&
-    //         initialY >= currentDropBound.top &&
-    //         initialY <= currentDropBound.bottom
-    //     ) {
-    //         currentDrop.classList.add("dropped");
-    //         //hide actual image
-    //         currentElement.classList.add("hide");
-    //         currentDrop.innerHTML = ``;
-    //         //Insert new img element
-    //         currentDrop.insertAdjacentHTML(
-    //             "afterbegin",
-    //             `<img src= "${currentElement.id}.png">`
-    //         );
-    //         count += 1;
-    //     }
-    // } else {
-        //Access data
-        const draggedElementData = e.dataTransfer.getData("text");
-        //Get custom attribute value
-        const droppableElementData = e.target.getAttribute("data-id");
-        if (draggedElementData === droppableElementData) {
-            const draggedElement = document.getElementById(draggedElementData);
-            //dropped class
-            e.target.classList.add("dropped");
-            //hide current img
-            draggedElement.classList.add("hide");
-            //draggable set to false
-            draggedElement.setAttribute("draggable", "false");
-            e.target.innerHTML = ``;
-            //insert new img
-            e.target.insertAdjacentHTML(
-                "afterbegin",
-                `<img src="${draggedElementData}.png">`
-            );
-            count += 1;
-        }
+
+    const id = e.dataTransfer.getData('text/plain');
+    const piece = document.getElementById(id);
+
+
+    // if(clickedElementIndex != null){
+    //     let existingTile = e.target.querySelector(`[id="answer${id}"]`);
+    //     console.log(e.target)
+    //     // existingTile.remove();
+    //     dragContainer.appendChild(e.target);
     // }
-};
+
+
+    let answerarea = document.getElementById("answer-select");
+
+    if (answerarea.hasChildNodes()) {
+        let existingTile = answerarea.firstChild;
+        dragContainer.appendChild(existingTile)
+        // console.log(existingTile);
+    }
+
+
+    e.target.appendChild(piece);
+    // piece.classList.add("dragged")
+
+
+    // const existingTile = e.target.querySelector(`[id="answer${id}"]`);
+    // console.log(existingTile)
+    // if (existingTile) {
+    //     // Remove the existing tile from the drop zone and reset its position
+    //     existingTile.remove();
+    //     dragContainer.appendChild(existingTile);
+    //     // existingTile.style.bottom = '0';
+    // }
+    // else {
+    //     e.target.appendChild(piece);
+    // }
+    clickedElementIndex = id.slice(-1);
+}
+
+// const drop = (e) => {
+//     e.preventDefault();
+//     //For touch screen
+//     // if (isTouchDevice()) {
+//     //     moveElement = false;
+//     //     //Select country name div using the custom attribute
+//     //     const currentDrop = document.querySelector(`div[data-id='${e.target.id}']`);
+//     //     //Get boundaries of div
+//     //     const currentDropBound = currentDrop.getBoundingClientRect();
+//     //     //if the position of flag falls inside the bounds of the countru name
+//     //     if (
+//     //         initialX >= currentDropBound.left &&
+//     //         initialX <= currentDropBound.right &&
+//     //         initialY >= currentDropBound.top &&
+//     //         initialY <= currentDropBound.bottom
+//     //     ) {
+//     //         currentDrop.classList.add("dropped");
+//     //         //hide actual image
+//     //         currentElement.classList.add("hide");
+//     //         currentDrop.innerHTML = ``;
+//     //         //Insert new img element
+//     //         currentDrop.insertAdjacentHTML(
+//     //             "afterbegin",
+//     //             `<img src= "${currentElement.id}.png">`
+//     //         );
+//     //         count += 1;
+//     //     }
+//     // } else {
+//         //Access data
+//         const draggedElementData = e.dataTransfer.getData("text/plain");
+//         //Get custom attribute value
+//         const droppableElementData = e.target.getAttribute("data-id");
+//         if (draggedElementData === droppableElementData) {
+//             const draggedElement = document.getElementById(draggedElementData);
+//             //dropped class
+//             e.target.classList.add("dropped");
+//             //hide current img
+//             draggedElement.classList.add("hide");
+//             //draggable set to false
+//             draggedElement.setAttribute("draggable", "false");
+//             e.target.innerHTML = ``;
+//             //insert new img
+//             e.target.insertAdjacentHTML(
+//                 "afterbegin",
+//                 `<img src="${draggedElementData}.png">`
+//             );
+//             count += 1;
+//         }
+//     // }
+// };
 
 buttons.forEach((element) => {
     element.addEventListener("click", function () {
@@ -152,11 +200,10 @@ buttons.forEach((element) => {
     })
 });
 
-var clickedElementIndex = 5;
+var clickedElementIndex = null;
 
 const clickCheck = (e) => {
     clickedElementIndex = e.target.id.slice(-1);
-    console.log(clickedElementIndex);
 }
 
 
@@ -199,14 +246,16 @@ async function loadGame(difficulties, current) {
     answerObjects = document.querySelectorAll(".option");
 
     answerObjects.forEach((element) => {
-        element.addEventListener("click", clickCheck);
+        // element.addEventListener("click", clickCheck);
 
         element.addEventListener("dragstart", dragStart);
         //for touch screen
-        element.addEventListener("touchstart", dragStart);
-        element.addEventListener("touchend", drop);
-        element.addEventListener("touchmove", touchMove);
+        // element.addEventListener("touchstart", dragStart);
+        // element.addEventListener("touchend", drop);
+        // element.addEventListener("touchmove", touchMove);
     });
+
+
     document.getElementById("answer-select").addEventListener("dragover", dragOver);
     document.getElementById("answer-select").addEventListener("drop", drop);
 
@@ -230,10 +279,10 @@ function displayQuestion(i) {
 const questionArea = document.getElementById("question")
 const answerArea = document.getElementById("answer-area")
 function checkAnswer(i) {
-    console.log(questions)
-    console.log(i)
-    console.log(questions[i]);
-    console.log(questions[i].correct);
+    // console.log(questions)
+    // console.log(i)
+    // console.log(questions[i]);
+    // console.log(questions[i].correct);
     if (clickedElementIndex === questions[i].correct) { //if last char of ID of selected element === questions[i].correct
         totalPoints++;
         document.getElementById("score").innerText = totalPoints + "/5";
@@ -244,10 +293,10 @@ function checkAnswer(i) {
             document.getElementById("new-game").style.display = "";
             return;
         }
-        console.log("correct");
+        // console.log("correct");
         questionArea.innerText = "Spravne";
     } else { //if wrong
-        console.log("wrong");
+        // console.log("wrong");
         questionArea.innerText = "Nespravne";
         totalPoints = 0;
         document.getElementById("score").innerText = totalPoints + "/5";
