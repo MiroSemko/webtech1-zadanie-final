@@ -24,7 +24,7 @@
           "correct": "0"
         }
       ],
-        "timer": 45
+        "timer": 5
       }
     },
     {
@@ -51,7 +51,7 @@
           "correct": "0"
         }
       ],
-        "timer": 30
+        "timer": 5
       }
     },
     {
@@ -78,7 +78,7 @@
           "correct": "0"
         }
       ],
-        "timer": 15
+        "timer": 3
       }
     }
   ]

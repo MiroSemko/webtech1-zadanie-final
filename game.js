@@ -162,6 +162,14 @@ const clickCheck = (e) => {
 
 var questions = [];
 
+var dif;
+var cur;
+async function loadSettings(diff, curr){
+    dif = diff;
+    cur = curr;
+    loadGame(dif,cur);
+}
+
 async function loadGame(difficulties, current) {
     currentDiff = current;
     let q;
@@ -227,6 +235,15 @@ function checkAnswer(i) {
     console.log(questions[i]);
     console.log(questions[i].correct);
     if (clickedElementIndex === questions[i].correct) { //if last char of ID of selected element === questions[i].correct
+        totalPoints++;
+        document.getElementById("score").innerText = totalPoints + "/5";
+        if(totalPoints===maxPoints){
+            console.log("win");
+            questionArea.innerText = "Vyhra!!!";
+            totalPoints = 0
+            document.getElementById("new-game").style.display = "";
+            return;
+        }
         console.log("correct");
         questionArea.innerText = "Spravne";
     } else { //if wrong
@@ -242,6 +259,8 @@ function checkAnswer(i) {
     }
     document.getElementById("next").style.display = "";
 }
+
+var maxTime;
 
 document.getElementById("next").addEventListener("click", function () {
     handleGame(maxTime);
