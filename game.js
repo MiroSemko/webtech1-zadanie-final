@@ -1,4 +1,3 @@
-
 // PWA
 // if ('serviceWorker' in navigator) {
 //     window.addEventListener('load', () => {
@@ -12,8 +11,6 @@
 // /PWA
 
 
-
-
 //Initial References
 let draggableObjects;
 let dropPoints;
@@ -25,6 +22,12 @@ const result = document.getElementById("result");
 const controls = document.querySelector(".controls-container");
 const dragContainer = document.querySelector(".draggable-objects");
 const dropContainer = document.querySelector(".drop-points");
+
+
+let answerObjects;
+let currentDiff;
+
+
 const data = [
     "belgium",
     "bhutan",
@@ -174,85 +177,59 @@ const drop = (e) => {
 };
 
 //Creates flags and countries
-const creator = () => {
-    dragContainer.innerHTML = "";
-    dropContainer.innerHTML = "";
-    let randomData = [];
-    //for string random values in array
-    for (let i = 1; i <= 3; i++) {
-        let randomValue = randomValueGenerator();
-        if (!randomData.includes(randomValue)) {
-            randomData.push(randomValue);
-        } else {
-            //If value already exists then decrement i by 1
-            i -= 1;
-        }
-    }
-    for (let i of randomData) {
-        const flagDiv = document.createElement("div");
-        flagDiv.classList.add("draggable-image");
-        flagDiv.setAttribute("draggable", true);
-        if (isTouchDevice()) {
-            flagDiv.style.position = "absolute";
-        }
-        flagDiv.innerHTML = `<img src="${i}.png" id="${i}">`;
-        dragContainer.appendChild(flagDiv);
-    }
-    //Sort the array randomly before creating country divs
-    randomData = randomData.sort(() => 0.5 - Math.random());
-    for (let i of randomData) {
-        const countryDiv = document.createElement("div");
-        countryDiv.innerHTML = `<div class='countries' data-id='${i}'>
-    ${i.charAt(0).toUpperCase() + i.slice(1).replace("-", " ")}
-    </div>
-    `;
-        dropContainer.appendChild(countryDiv);
-    }
-};
+// const creator = () => {
+//     dragContainer.innerHTML = "";
+//     dropContainer.innerHTML = "";
+//     let randomData = [];
+//     //for string random values in array
+//     for (let i = 1; i <= 3; i++) {
+//         let randomValue = randomValueGenerator();
+//         if (!randomData.includes(randomValue)) {
+//             randomData.push(randomValue);
+//         } else {
+//             //If value already exists then decrement i by 1
+//             i -= 1;
+//         }
+//     }
+//     for (let i of randomData) {
+//         const flagDiv = document.createElement("div");
+//         flagDiv.classList.add("draggable-image");
+//         flagDiv.setAttribute("draggable", true);
+//         if (isTouchDevice()) {
+//             flagDiv.style.position = "absolute";
+//         }
+//         flagDiv.innerHTML = `<img src="${i}.png" id="${i}">`;
+//         dragContainer.appendChild(flagDiv);
+//     }
+//     //Sort the array randomly before creating country divs
+//     randomData = randomData.sort(() => 0.5 - Math.random());
+//     for (let i of randomData) {
+//         const countryDiv = document.createElement("div");
+//         countryDiv.innerHTML = `<div class='countries' data-id='${i}'>
+//     ${i.charAt(0).toUpperCase() + i.slice(1).replace("-", " ")}
+//     </div>
+//     `;
+//         dropContainer.appendChild(countryDiv);
+//     }
+// };
 
 buttons.forEach((element) => {
     element.addEventListener("click", function () {
         currentElement = "";
-    document.getElementById("game-container").style.display = "block";
-    controls.classList.add("hide");
-    element.classList.add("hide");
+        document.getElementById("game-container").style.display = "block";
+        controls.classList.add("hide");
+        element.classList.add("hide");
 
+        //This will wait for creator to create the images and then move forward
+        // await creator();
 
-    //This will wait for creator to create the images and then move forward
-    // await creator();
-    fetch('./settings.json')
-        .then((response) => response.json())
-        .then((json) => loadGame(json.difficulty,element.value));
-    document.getElementById("info").innerHTML = element.innerText;
-    document.getElementById("info").value = element.value;
-
-    count = 0;
-    dropPoints = document.querySelectorAll(".countries");
-    draggableObjects = document.querySelectorAll(".draggable-image");
-
-
-    answerObjects = document.querySelectorAll(".answer");
-
-    answerObjects.forEach((element) => {
-        element.addEventListener("click", clickCheck);
+        fetch('./settings.json')
+            .then((response) => response.json())
+            .then((json) => loadGame(json.difficulty, element.value));
+        document.getElementById("info").innerHTML = element.innerText;
+        document.getElementById("info").value = element.value;
     })
-
-    //Events
-    draggableObjects.forEach((element) => {
-        element.addEventListener("click", clickCheck);
-
-        element.addEventListener("dragstart", dragStart);
-        //for touch screen
-        element.addEventListener("touchstart", dragStart);
-        element.addEventListener("touchend", drop);
-        element.addEventListener("touchmove", touchMove);
-    });
-    dropPoints.forEach((element) => {
-        element.addEventListener("dragover", dragOver);
-        element.addEventListener("drop", drop);
-    });
-})});
-
+});
 
 var clickedElementIndex;
 
@@ -262,10 +239,12 @@ const clickCheck = (e) => {
 }
 
 
-
 var questions = [];
 
 async function loadGame(difficulties, current) {
+    console.log(current);
+    currentDiff = current;
+    console.log(currentDiff);
     let q;
     let t;
     switch (current) {
@@ -282,17 +261,33 @@ async function loadGame(difficulties, current) {
             t = difficulties[2].tazka.timer;
             break;
     }
-    for(let i = 0; i < q.length; i++) {
+    for (let i = 0; i < q.length; i++) {
         questions.push(q[i]);
     }
-    console.log(questions);
+
+    // count = 0;
+
+    answerObjects = document.querySelectorAll(".option");
+
+    // answerObjects.forEach((element) => {
+    //     element.addEventListener("click", clickCheck);
+    // })
+
+    answerObjects.forEach((element) => {
+        element.addEventListener("click", clickCheck);
+
+        // element.addEventListener("dragstart", dragStart);
+        // //for touch screen
+        // element.addEventListener("touchstart", dragStart);
+        // element.addEventListener("touchend", drop);
+        // element.addEventListener("touchmove", touchMove);
+    });
+    document.getElementById("answer-select").addEventListener("dragover", dragOver);
+    document.getElementById("answer-select").addEventListener("drop", drop);
 
     //start game
     handleGame(t);
 }
-
-
-
 
 
 const progressBar = document.querySelector('.progress-bar');
@@ -314,11 +309,11 @@ const progressBar = document.querySelector('.progress-bar');
 
 function displayQuestion(i) {
     document.getElementById("question").style.color = "black";
-    document.getElementById("question").innerHTML = questions[i].question;
-    document.getElementById("answer0").innerHTML = questions[i].answers[0];
-    document.getElementById("answer1").innerHTML = questions[i].answers[1];
-    document.getElementById("answer2").innerHTML = questions[i].answers[2];
-    document.getElementById("answer3").innerHTML = questions[i].answers[3];
+    document.getElementById("question").innerText = questions[i].question;
+    document.getElementById("answer0").innerText = questions[i].answers[0];
+    document.getElementById("answer1").innerText = questions[i].answers[1];
+    document.getElementById("answer2").innerText = questions[i].answers[2];
+    document.getElementById("answer3").innerText = questions[i].answers[3];
 }
 
 function checkAnswer(i) {
@@ -332,6 +327,7 @@ function checkAnswer(i) {
 function handleGame(timerCount) {
     //generate all Qs from set difficulty also cache, if cached or empty dont generate
     maxTime = timerCount;
+    progressBar.style.width = "100%";
 
     let i = Math.floor(Math.random() * questions.length);
     displayQuestion(i);

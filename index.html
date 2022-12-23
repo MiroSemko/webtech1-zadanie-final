@@ -2,16 +2,16 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <title>PWA Game</title>
     <!--    <link rel="manifest" href="manifest.json"> //PWA-->
-    <link rel="stylesheet" href="style.css">
+    <link href="style.css" rel="stylesheet">
     <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
             rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
 </head>
 <body>
 
@@ -19,27 +19,29 @@
     <div class="game-wrapper h-100">
         <div class="game-info-div h-20" id="info"></div>
         <div class="question-div h-40 justify-content-center" style="text-align: center;">
-            <p id="question">Otazocka mojko?????????</p>
-            <div class="answers col-md-6 col-sm-12" style="border: 1px dashed navy"></div>
+            <p id="question"></p>
+            <div class="row">
+                <div class="answer col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-10 offset-1" id="answer-select" style="border: 1px dashed navy"></div>
+            </div>
         </div>
         <div class="timer-div h-10">
             <div class="progress-bar" style="width: 0;"></div>
         </div>
-        <div class="answers h-30">
+        <div class="answers-div h-30">
             <div class="row d-flex justify-content-between h-50">
                 <div class="col-4">
-                    <div class="answer" id="answer0">dsa</div>
+                    <div class="option" id="answer0"></div>
                 </div>
                 <div class="col-4">
-                    <div class="answer" id="answer1">dsadsa</div>
+                    <div class="option" id="answer1"></div>
                 </div>
             </div>
             <div class="row d-flex justify-content-between h-50">
                 <div class="col-4">
-                    <div class="answer" id="answer2">dsadsa</div>
+                    <div class="option" id="answer2"></div>
                 </div>
                 <div class="col-4">
-                    <div class="answer" id="answer3">dsasad</div>
+                    <div class="option" id="answer3"></div>
                 </div>
             </div>
         </div>
