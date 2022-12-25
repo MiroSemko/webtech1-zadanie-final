@@ -187,12 +187,44 @@ const drop = (e) => {
 //     // }
 // };
 
+
+// const shakeDetector = new ShakeDetector();
+const shakeDetector = new window.ShakeDetector();
+const onShake = () => {
+    console.log('shake!');
+    document.getElementById("difficulty").style.color = "green";
+
+};
+
+
+
 buttons.forEach((element) => {
     element.addEventListener("click", function () {
         currentElement = "";
         document.getElementById("game-container").style.display = "block";
         controls.classList.add("hide");
         element.classList.add("hide");
+
+        // shake detection
+        if (typeof DeviceMotionEvent.requestPermission === 'function') {
+            // for iOS 13+
+            DeviceMotionEvent.requestPermission()
+                .then(permissionState => {
+                    if (permissionState === 'granted') {
+                        // window.addEventListener('devicemotion', () => {});
+
+                        shakeDetector.confirmPermissionGranted();
+                        shakeDetector.start();
+                    }
+                })
+                .catch(console.error);
+        } else {
+            // handle regular non iOS 13+ devices
+            shakeDetector.start();
+        }
+        window.addEventListener(ShakeDetector.SHAKE_EVENT, onShake);
+        // /shake detection
+
 
         fetch('./settings.json')
             .then((response) => response.json())
@@ -356,6 +388,4 @@ function handleGame(timerCount) {
         }
     }, 1000);
 }
-
-
 
