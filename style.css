@@ -56,13 +56,35 @@ img {
     z-index: 100;
 }
 
+#answer0 {
+    left: 10%;
+    top: 50%;
+}
+
+#answer1 {
+    right: 10%;
+    top: 50%;
+}
+
+#answer2 {
+    left: 10%;
+    top: 70%;
+}
+
+#answer3 {
+    right: 10%;
+    top: 70%;
+}
+
 .option {
+    position: absolute;
     margin: auto;
     border: 2px solid goldenrod;
     border-radius: 80px / 30px;
     text-align: center;
     padding: 10px;
     height: 50px;
+    width: 33%;
     cursor: move;
     z-index: 1;
 }
