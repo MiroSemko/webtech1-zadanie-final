@@ -116,7 +116,7 @@ const drop = (e) => {
         dragContainer.appendChild(existingTile);
         existingTile.style.position = "absolute";
         existingTile.style.width = "33%";
-        existingTileID = Number(existingTile.id.slice(-1));
+        let existingTileID = Number(existingTile.id.slice(-1));
         if (existingTileID % 2 === 0) {
             existingTile.style.left = "10%";
             if (existingTileID < 2) {
@@ -133,7 +133,6 @@ const drop = (e) => {
             }
         }
     }
-
 
     answerarea.appendChild(piece);
     piece.style.width = "90%";
@@ -384,6 +383,26 @@ document.getElementById("help").addEventListener("click", function () {
 })
 
 function handleGame(timerCount) {
+    answerObjects.forEach((element) => {
+        element.style.position = "absolute";
+        element.style.width = "33%";
+        let elementID = Number(element.id.slice(-1));
+        if (elementID % 2 === 0) {
+            element.style.left = "10%";
+            if (elementID < 2) {
+                element.style.top = "50%";
+            } else {
+                element.style.top = "70%";
+            }
+        } else {
+            element.style.right = "10%";
+            if (elementID < 2) {
+                element.style.top = "50%";
+            } else {
+                element.style.top = "70%";
+            }
+        }
+    });
     //generate all Qs from set difficulty also cache, if cached or empty dont generate
     document.getElementById("new-game").style.display = "none";
     document.getElementById("next").style.display = "none";
