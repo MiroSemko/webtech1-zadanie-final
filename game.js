@@ -26,30 +26,46 @@ let currentQuestionIndex;
 // const result = document.getElementById("result");
 const controls = document.querySelector(".controls-container");
 const dragContainer = document.querySelector(".answers-div");
+const dropContainer = document.querySelector(".answer");
 
 
 let answerObjects;
 let currentDiff;
 
-// let deviceType = "";
-// let initialX = 0,
-//     initialY = 0;
+let deviceType = "";
+let initialX = 0,
+    initialY = 0;
 let currentElement = "";
-// let moveElement = false;
+let moveElement = false;
 
 //Detect touch device
-// const isTouchDevice = () => {
-//     try {
-//         //We try to create Touch Event (It would fail for desktops and throw error)
-//         document.createEvent("TouchEvent");
-//         deviceType = "touch";
-//         return true;
-//     } catch (e) {
-//         deviceType = "mouse";
-//         return false;
-//     }
-// };
+const isTouchDevice = () => {
+    try {
+        //We try to create Touch Event (It would fail for desktops and throw error)
+        document.createEvent("TouchEvent");
+        deviceType = "touch";
+        return true;
+    } catch (e) {
+        deviceType = "mouse";
+        return false;
+    }
+};
 
+// //Drag & Drop Functions
+// function dragStart(e) {
+//     if (isTouchDevice()) {
+//         initialX = e.touches[0].clientX;
+//         initialY = e.touches[0].clientY;
+//         //Start movement for touch
+//         moveElement = true;
+//         currentElement = e.target;
+//     } else {
+//         //For non touch devices set data to be transferred
+//         e.dataTransfer.setData("text/plain", e.target.id);
+//         // console.log(e.getData("text"));
+//         // window.console.log(e.getData("text"));
+//     }
+// }
 //Drag & Drop Functions
 function dragStart(e) {
     e.dataTransfer.setData("text/plain", e.target.id);
@@ -77,6 +93,7 @@ function dragOver(e) {
 //         initialY - newY;
 //     }
 // };
+
 
 const drop = (e) => {
     e.preventDefault();
@@ -110,11 +127,75 @@ const drop = (e) => {
     }
 
     answerArea.appendChild(piece);
-    piece.style.width = "98%";
+    piece.style.width = "90%";
     piece.style.position = "static";
+    // piece.classList.add("dragged")
 
+
+    // const existingTile = e.target.querySelector(`[id="answer${id}"]`);
+    // console.log(existingTile)
+    // if (existingTile) {
+    //     // Remove the existing tile from the drop zone and reset its position
+    //     existingTile.remove();
+    //     dragContainer.appendChild(existingTile);
+    //     // existingTile.style.bottom = '0';
+    // }
+    // else {
+    //     e.target.appendChild(piece);
+    // }
     clickedElementIndex = id.slice(-1);
 }
+
+// const drop = (e) => {
+//     e.preventDefault();
+//     //For touch screen
+//     // if (isTouchDevice()) {
+//     //     moveElement = false;
+//     //     //Select country name div using the custom attribute
+//     //     const currentDrop = document.querySelector(`div[data-id='${e.target.id}']`);
+//     //     //Get boundaries of div
+//     //     const currentDropBound = currentDrop.getBoundingClientRect();
+//     //     //if the position of flag falls inside the bounds of the countru name
+//     //     if (
+//     //         initialX >= currentDropBound.left &&
+//     //         initialX <= currentDropBound.right &&
+//     //         initialY >= currentDropBound.top &&
+//     //         initialY <= currentDropBound.bottom
+//     //     ) {
+//     //         currentDrop.classList.add("dropped");
+//     //         //hide actual image
+//     //         currentElement.classList.add("hide");
+//     //         currentDrop.innerHTML = ``;
+//     //         //Insert new img element
+//     //         currentDrop.insertAdjacentHTML(
+//     //             "afterbegin",
+//     //             `<img src= "${currentElement.id}.png">`
+//     //         );
+//     //         count += 1;
+//     //     }
+//     // } else {
+//         //Access data
+//         const draggedElementData = e.dataTransfer.getData("text/plain");
+//         //Get custom attribute value
+//         const droppableElementData = e.target.getAttribute("data-id");
+//         if (draggedElementData === droppableElementData) {
+//             const draggedElement = document.getElementById(draggedElementData);
+//             //dropped class
+//             e.target.classList.add("dropped");
+//             //hide current img
+//             draggedElement.classList.add("hide");
+//             //draggable set to false
+//             draggedElement.setAttribute("draggable", "false");
+//             e.target.innerHTML = ``;
+//             //insert new img
+//             e.target.insertAdjacentHTML(
+//                 "afterbegin",
+//                 `<img src="${draggedElementData}.png">`
+//             );
+//             count += 1;
+//         }
+//     // }
+// };
 
 
 const shakeDetector = new window.ShakeDetector();
@@ -123,6 +204,8 @@ const onShake = () => {
     document.getElementById("difficulty").style.color = "green";
     removeTwoOptions();
 };
+
+
 
 buttons.forEach((element) => {
     element.addEventListener("click", function () {
@@ -329,21 +412,21 @@ document.getElementById("help").addEventListener("click", function () {
 function handleGame(timerCount) {
     answerObjects.forEach((element) => {
         element.style.position = "absolute";
-        element.style.width = "33%";
+        element.style.width = "45%";
         let elementID = Number(element.id.slice(-1));
         if (elementID % 2 === 0) {
-            element.style.left = "10%";
+            element.style.left = "0";
             if (elementID < 2) {
-                element.style.top = "50%";
+                element.style.top = "57%";
             } else {
-                element.style.top = "70%";
+                element.style.top = "75%";
             }
         } else {
-            element.style.right = "10%";
+            element.style.right = "0";
             if (elementID < 2) {
-                element.style.top = "50%";
+                element.style.top = "57%";
             } else {
-                element.style.top = "70%";
+                element.style.top = "75%";
             }
         }
     });
