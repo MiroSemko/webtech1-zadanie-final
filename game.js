@@ -59,7 +59,7 @@ const isTouchDevice = () => {
 //         moveElement = true;
 //         currentElement = e.target;
 //     } else {
-//         //For non touch devices set data to be transfered
+//         //For non touch devices set data to be transferred
 //         e.dataTransfer.setData("text/plain", e.target.id);
 //         // console.log(e.getData("text"));
 //         // window.console.log(e.getData("text"));
@@ -112,13 +112,31 @@ const drop = (e) => {
     let answerarea = document.getElementById("answer-select");
 
     if (answerarea.hasChildNodes()) {
-        let existingTile = answerarea.firstChild;
-        dragContainer.appendChild(existingTile)
-        // console.log(existingTile);
+        let existingTile = answerarea.firstElementChild;
+        dragContainer.appendChild(existingTile);
+        existingTile.style.position = "absolute";
+        existingTile.style.width = "33%";
+        let existingTileID = Number(existingTile.id.slice(-1));
+        if (existingTileID % 2 === 0) {
+            existingTile.style.left = "10%";
+            if (existingTileID < 2) {
+                existingTile.style.top = "50%";
+            } else {
+                existingTile.style.top = "70%";
+            }
+        } else {
+            existingTile.style.right = "10%";
+            if (existingTileID < 2) {
+                existingTile.style.top = "50%";
+            } else {
+                existingTile.style.top = "70%";
+            }
+        }
     }
 
-
     answerarea.appendChild(piece);
+    piece.style.width = "90%";
+    piece.style.position = "static";
     // piece.classList.add("dragged")
 
 
@@ -188,7 +206,6 @@ const drop = (e) => {
 // };
 
 
-// const shakeDetector = new ShakeDetector();
 const shakeDetector = new window.ShakeDetector();
 const onShake = () => {
     console.log('shake!');
@@ -366,6 +383,26 @@ document.getElementById("help").addEventListener("click", function () {
 })
 
 function handleGame(timerCount) {
+    answerObjects.forEach((element) => {
+        element.style.position = "absolute";
+        element.style.width = "33%";
+        let elementID = Number(element.id.slice(-1));
+        if (elementID % 2 === 0) {
+            element.style.left = "10%";
+            if (elementID < 2) {
+                element.style.top = "50%";
+            } else {
+                element.style.top = "70%";
+            }
+        } else {
+            element.style.right = "10%";
+            if (elementID < 2) {
+                element.style.top = "50%";
+            } else {
+                element.style.top = "70%";
+            }
+        }
+    });
     //generate all Qs from set difficulty also cache, if cached or empty dont generate
     document.getElementById("new-game").style.display = "none";
     document.getElementById("next").style.display = "none";
