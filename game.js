@@ -22,50 +22,36 @@ const buttons = [startEasy, startMedium, startHard];
 let totalPoints = 0;
 let maxPoints;
 let currentQuestionIndex;
+let usedHelp = false;
 
 // const result = document.getElementById("result");
 const controls = document.querySelector(".controls-container");
 const dragContainer = document.querySelector(".answers-div");
-const dropContainer = document.querySelector(".answer");
+// const dropContainer = document.querySelector(".answer");
 
 
 let answerObjects;
 let currentDiff;
 
-let deviceType = "";
-let initialX = 0,
-    initialY = 0;
+// let deviceType = "";
+// let initialX = 0,
+//     initialY = 0;
 let currentElement = "";
-let moveElement = false;
+// let moveElement = false;
 
 //Detect touch device
-const isTouchDevice = () => {
-    try {
-        //We try to create Touch Event (It would fail for desktops and throw error)
-        document.createEvent("TouchEvent");
-        deviceType = "touch";
-        return true;
-    } catch (e) {
-        deviceType = "mouse";
-        return false;
-    }
-};
-
-// //Drag & Drop Functions
-// function dragStart(e) {
-//     if (isTouchDevice()) {
-//         initialX = e.touches[0].clientX;
-//         initialY = e.touches[0].clientY;
-//         //Start movement for touch
-//         moveElement = true;
-//         currentElement = e.target;
-//     } else {
-//         //For non touch devices set data to be transferred
-//         e.dataTransfer.setData("text/plain", e.target.id);
-//         // console.log(e.getData("text"));
-//         // window.console.log(e.getData("text"));
+// const isTouchDevice = () => {
+//     try {
+//         //We try to create Touch Event (It would fail for desktops and throw error)
+//         document.createEvent("TouchEvent");
+//         deviceType = "touch";
+//         return true;
+//     } catch (e) {
+//         deviceType = "mouse";
+//         return false;
 //     }
-// }
+// };
+
 //Drag & Drop Functions
 function dragStart(e) {
     e.dataTransfer.setData("text/plain", e.target.id);
@@ -129,80 +115,17 @@ const drop = (e) => {
     answerArea.appendChild(piece);
     piece.style.width = "90%";
     piece.style.position = "static";
-    // piece.classList.add("dragged")
 
-
-    // const existingTile = e.target.querySelector(`[id="answer${id}"]`);
-    // console.log(existingTile)
-    // if (existingTile) {
-    //     // Remove the existing tile from the drop zone and reset its position
-    //     existingTile.remove();
-    //     dragContainer.appendChild(existingTile);
-    //     // existingTile.style.bottom = '0';
-    // }
-    // else {
-    //     e.target.appendChild(piece);
-    // }
     clickedElementIndex = id.slice(-1);
 }
-
-// const drop = (e) => {
-//     e.preventDefault();
-//     //For touch screen
-//     // if (isTouchDevice()) {
-//     //     moveElement = false;
-//     //     //Select country name div using the custom attribute
-//     //     const currentDrop = document.querySelector(`div[data-id='${e.target.id}']`);
-//     //     //Get boundaries of div
-//     //     const currentDropBound = currentDrop.getBoundingClientRect();
-//     //     //if the position of flag falls inside the bounds of the countru name
-//     //     if (
-//     //         initialX >= currentDropBound.left &&
-//     //         initialX <= currentDropBound.right &&
-//     //         initialY >= currentDropBound.top &&
-//     //         initialY <= currentDropBound.bottom
-//     //     ) {
-//     //         currentDrop.classList.add("dropped");
-//     //         //hide actual image
-//     //         currentElement.classList.add("hide");
-//     //         currentDrop.innerHTML = ``;
-//     //         //Insert new img element
-//     //         currentDrop.insertAdjacentHTML(
-//     //             "afterbegin",
-//     //             `<img src= "${currentElement.id}.png">`
-//     //         );
-//     //         count += 1;
-//     //     }
-//     // } else {
-//         //Access data
-//         const draggedElementData = e.dataTransfer.getData("text/plain");
-//         //Get custom attribute value
-//         const droppableElementData = e.target.getAttribute("data-id");
-//         if (draggedElementData === droppableElementData) {
-//             const draggedElement = document.getElementById(draggedElementData);
-//             //dropped class
-//             e.target.classList.add("dropped");
-//             //hide current img
-//             draggedElement.classList.add("hide");
-//             //draggable set to false
-//             draggedElement.setAttribute("draggable", "false");
-//             e.target.innerHTML = ``;
-//             //insert new img
-//             e.target.insertAdjacentHTML(
-//                 "afterbegin",
-//                 `<img src="${draggedElementData}.png">`
-//             );
-//             count += 1;
-//         }
-//     // }
-// };
-
 
 const shakeDetector = new window.ShakeDetector();
 const onShake = () => {
     console.log('shake!');
-    document.getElementById("difficulty").style.color = "green";
-    removeTwoOptions();
+    if (!usedHelp) {
+        document.getElementById("joker").style.backgroundColor = "indianred";
+        removeTwoOptions();
+    }
 };
 
 
@@ -274,6 +197,13 @@ const clickCheck = (e) => {
     piece.style.position = "static";
 }
 
+document.getElementById("joker").addEventListener("click", () => {
+    if (!usedHelp) {
+        document.getElementById("joker").style.backgroundColor = "indianred";
+        removeTwoOptions();
+    }
+});
+
 
 let questions = [];
 
@@ -332,18 +262,26 @@ async function loadGame(difficulties, current) {
 }
 
 function removeTwoOptions() {
+    usedHelp = true;
+    document.getElementById("joker").innerText = "Žolík využitý";
     const correct = Number(questions[currentQuestionIndex].correct);
-    let random1 = Math.floor(Math.random() * questions.length);
-    let random2 = Math.floor(Math.random() * questions.length);
-    while (correct === random1 || correct === random2) {
+    let random1 = Math.floor(Math.random() * 4);
+    let random2 = Math.floor(Math.random() * 4);
+    while (correct === random1 || correct === random2 || random1 === random2) {
         if (correct === random1) {
             random1 = Math.floor(Math.random() * questions.length);
         }
         if (correct === random2) {
             random2 = Math.floor(Math.random() * questions.length);
         }
+        if (random1 === random2) {
+            random2 = Math.floor(Math.random() * questions.length);
+        }
     }
-
+    let id1 = "answer" + random1;
+    let id2 = "answer" + random2;
+    document.getElementById(id1).style.visibility = "hidden";
+    document.getElementById(id2).style.visibility = "hidden";
 }
 
 const progressBar = document.querySelector('.progress-bar');
@@ -366,7 +304,7 @@ function displayQuestion(i) {
 
 
 const questionArea = document.getElementById("question");
-// const answerArea = document.getElementById("answer-area")
+// const answerArea = document.getElementById("answer-area");
 function checkAnswer() {
     if (clickedElementIndex === questions[currentQuestionIndex].correct) { //if last char of ID of selected element === questions[i].correct
         totalPoints++;
@@ -402,6 +340,7 @@ document.getElementById("repeat").addEventListener("click", function () {
 })
 
 document.getElementById("new-game").addEventListener("click", function () {
+    usedHelp = false;
     open("./index.html", "_self");
 })
 
@@ -411,6 +350,7 @@ document.getElementById("help").addEventListener("click", function () {
 
 function handleGame(timerCount) {
     answerObjects.forEach((element) => {
+        element.style.visibility = "visible";
         element.style.position = "absolute";
         element.style.width = "45%";
         let elementID = Number(element.id.slice(-1));
