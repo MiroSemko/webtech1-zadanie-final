@@ -21,50 +21,35 @@ const startHard = document.getElementById("start-hard");
 const buttons = [startEasy, startMedium, startHard];
 let totalPoints = 0;
 let maxPoints;
+let currentQuestionIndex;
 
 // const result = document.getElementById("result");
 const controls = document.querySelector(".controls-container");
 const dragContainer = document.querySelector(".answers-div");
-const dropContainer = document.querySelector(".answer");
 
 
 let answerObjects;
 let currentDiff;
 
-let deviceType = "";
-let initialX = 0,
-    initialY = 0;
+// let deviceType = "";
+// let initialX = 0,
+//     initialY = 0;
 let currentElement = "";
-let moveElement = false;
+// let moveElement = false;
 
 //Detect touch device
-const isTouchDevice = () => {
-    try {
-        //We try to create Touch Event (It would fail for desktops and throw error)
-        document.createEvent("TouchEvent");
-        deviceType = "touch";
-        return true;
-    } catch (e) {
-        deviceType = "mouse";
-        return false;
-    }
-};
-
-// //Drag & Drop Functions
-// function dragStart(e) {
-//     if (isTouchDevice()) {
-//         initialX = e.touches[0].clientX;
-//         initialY = e.touches[0].clientY;
-//         //Start movement for touch
-//         moveElement = true;
-//         currentElement = e.target;
-//     } else {
-//         //For non touch devices set data to be transferred
-//         e.dataTransfer.setData("text/plain", e.target.id);
-//         // console.log(e.getData("text"));
-//         // window.console.log(e.getData("text"));
+// const isTouchDevice = () => {
+//     try {
+//         //We try to create Touch Event (It would fail for desktops and throw error)
+//         document.createEvent("TouchEvent");
+//         deviceType = "touch";
+//         return true;
+//     } catch (e) {
+//         deviceType = "mouse";
+//         return false;
 //     }
-// }
+// };
+
 //Drag & Drop Functions
 function dragStart(e) {
     e.dataTransfer.setData("text/plain", e.target.id);
@@ -93,26 +78,16 @@ function dragOver(e) {
 //     }
 // };
 
-
 const drop = (e) => {
     e.preventDefault();
 
     const id = e.dataTransfer.getData('text/plain');
     const piece = document.getElementById(id);
 
+    let answerArea = document.getElementById("answer-select");
 
-    // if(clickedElementIndex != null){
-    //     let existingTile = e.target.querySelector(`[id="answer${id}"]`);
-    //     console.log(e.target)
-    //     // existingTile.remove();
-    //     dragContainer.appendChild(e.target);
-    // }
-
-
-    let answerarea = document.getElementById("answer-select");
-
-    if (answerarea.hasChildNodes()) {
-        let existingTile = answerarea.firstElementChild;
+    if (answerArea.hasChildNodes()) {
+        let existingTile = answerArea.firstElementChild;
         dragContainer.appendChild(existingTile);
         existingTile.style.position = "absolute";
         existingTile.style.width = "33%";
@@ -134,86 +109,20 @@ const drop = (e) => {
         }
     }
 
-    answerarea.appendChild(piece);
-    piece.style.width = "90%";
+    answerArea.appendChild(piece);
+    piece.style.width = "98%";
     piece.style.position = "static";
-    // piece.classList.add("dragged")
 
-
-    // const existingTile = e.target.querySelector(`[id="answer${id}"]`);
-    // console.log(existingTile)
-    // if (existingTile) {
-    //     // Remove the existing tile from the drop zone and reset its position
-    //     existingTile.remove();
-    //     dragContainer.appendChild(existingTile);
-    //     // existingTile.style.bottom = '0';
-    // }
-    // else {
-    //     e.target.appendChild(piece);
-    // }
     clickedElementIndex = id.slice(-1);
 }
-
-// const drop = (e) => {
-//     e.preventDefault();
-//     //For touch screen
-//     // if (isTouchDevice()) {
-//     //     moveElement = false;
-//     //     //Select country name div using the custom attribute
-//     //     const currentDrop = document.querySelector(`div[data-id='${e.target.id}']`);
-//     //     //Get boundaries of div
-//     //     const currentDropBound = currentDrop.getBoundingClientRect();
-//     //     //if the position of flag falls inside the bounds of the countru name
-//     //     if (
-//     //         initialX >= currentDropBound.left &&
-//     //         initialX <= currentDropBound.right &&
-//     //         initialY >= currentDropBound.top &&
-//     //         initialY <= currentDropBound.bottom
-//     //     ) {
-//     //         currentDrop.classList.add("dropped");
-//     //         //hide actual image
-//     //         currentElement.classList.add("hide");
-//     //         currentDrop.innerHTML = ``;
-//     //         //Insert new img element
-//     //         currentDrop.insertAdjacentHTML(
-//     //             "afterbegin",
-//     //             `<img src= "${currentElement.id}.png">`
-//     //         );
-//     //         count += 1;
-//     //     }
-//     // } else {
-//         //Access data
-//         const draggedElementData = e.dataTransfer.getData("text/plain");
-//         //Get custom attribute value
-//         const droppableElementData = e.target.getAttribute("data-id");
-//         if (draggedElementData === droppableElementData) {
-//             const draggedElement = document.getElementById(draggedElementData);
-//             //dropped class
-//             e.target.classList.add("dropped");
-//             //hide current img
-//             draggedElement.classList.add("hide");
-//             //draggable set to false
-//             draggedElement.setAttribute("draggable", "false");
-//             e.target.innerHTML = ``;
-//             //insert new img
-//             e.target.insertAdjacentHTML(
-//                 "afterbegin",
-//                 `<img src="${draggedElementData}.png">`
-//             );
-//             count += 1;
-//         }
-//     // }
-// };
 
 
 const shakeDetector = new window.ShakeDetector();
 const onShake = () => {
     console.log('shake!');
     document.getElementById("difficulty").style.color = "green";
-
+    removeTwoOptions();
 };
-
-
 
 buttons.forEach((element) => {
     element.addEventListener("click", function () {
@@ -240,8 +149,7 @@ buttons.forEach((element) => {
             shakeDetector.start();
         }
         window.addEventListener(ShakeDetector.SHAKE_EVENT, onShake);
-        // /shake detection
-
+        // shake detection
 
         fetch('./settings.json')
             .then((response) => response.json())
@@ -249,17 +157,45 @@ buttons.forEach((element) => {
     })
 });
 
-var clickedElementIndex = null;
+let clickedElementIndex = null;
 
 const clickCheck = (e) => {
     clickedElementIndex = e.target.id.slice(-1);
+    const selectedID = e.target.id;
+    const piece = document.getElementById(selectedID);
+    let answerArea = document.getElementById("answer-select");
+    if (answerArea.hasChildNodes()) {
+        let existingTile = answerArea.firstElementChild;
+        dragContainer.appendChild(existingTile);
+        existingTile.style.position = "absolute";
+        existingTile.style.width = "33%";
+        let existingTileID = Number(existingTile.id.slice(-1));
+        if (existingTileID % 2 === 0) {
+            existingTile.style.left = "10%";
+            if (existingTileID < 2) {
+                existingTile.style.top = "50%";
+            } else {
+                existingTile.style.top = "70%";
+            }
+        } else {
+            existingTile.style.right = "10%";
+            if (existingTileID < 2) {
+                existingTile.style.top = "50%";
+            } else {
+                existingTile.style.top = "70%";
+            }
+        }
+    }
+    answerArea.appendChild(piece);
+    piece.style.width = "98%";
+    piece.style.position = "static";
 }
 
 
-var questions = [];
+let questions = [];
 
-var dif;
-var cur;
+let dif;
+let cur;
 async function loadSettings(diff, curr){
     dif = diff;
     cur = curr;
@@ -295,9 +231,9 @@ async function loadGame(difficulties, current) {
     answerObjects = document.querySelectorAll(".option");
 
     answerObjects.forEach((element) => {
-        // element.addEventListener("click", clickCheck);
-
+        element.addEventListener("click", clickCheck);
         element.addEventListener("dragstart", dragStart);
+
         //for touch screen
         // element.addEventListener("touchstart", dragStart);
         // element.addEventListener("touchend", drop);
@@ -312,14 +248,28 @@ async function loadGame(difficulties, current) {
     handleGame(t);
 }
 
+function removeTwoOptions() {
+    const correct = Number(questions[currentQuestionIndex].correct);
+    let random1 = Math.floor(Math.random() * questions.length);
+    let random2 = Math.floor(Math.random() * questions.length);
+    while (correct === random1 || correct === random2) {
+        if (correct === random1) {
+            random1 = Math.floor(Math.random() * questions.length);
+        }
+        if (correct === random2) {
+            random2 = Math.floor(Math.random() * questions.length);
+        }
+    }
+
+}
 
 const progressBar = document.querySelector('.progress-bar');
 
 function displayQuestion(i) {
-    let answerarea = document.getElementById("answer-select");
+    let answerArea = document.getElementById("answer-select");
 
-    if (answerarea.hasChildNodes()) {
-        let existingTile = answerarea.firstChild;
+    if (answerArea.hasChildNodes()) {
+        let existingTile = answerArea.firstChild;
         dragContainer.appendChild(existingTile)
     }
 
@@ -332,14 +282,10 @@ function displayQuestion(i) {
 }
 
 
-const questionArea = document.getElementById("question")
-const answerArea = document.getElementById("answer-area")
-function checkAnswer(i) {
-    // console.log(questions)
-    // console.log(i)
-    // console.log(questions[i]);
-    // console.log(questions[i].correct);
-    if (clickedElementIndex === questions[i].correct) { //if last char of ID of selected element === questions[i].correct
+const questionArea = document.getElementById("question");
+// const answerArea = document.getElementById("answer-area")
+function checkAnswer() {
+    if (clickedElementIndex === questions[currentQuestionIndex].correct) { //if last char of ID of selected element === questions[i].correct
         totalPoints++;
         document.getElementById("score").innerText = totalPoints + "/5";
         if(totalPoints===maxPoints){
@@ -349,15 +295,13 @@ function checkAnswer(i) {
             document.getElementById("new-game").style.display = "";
             return;
         }
-        // console.log("correct");
         questionArea.innerText = "Spravne";
-    } else { //if wrong
-        // console.log("wrong");
+    } else {
         questionArea.innerText = "Nespravne";
         totalPoints = 0;
         document.getElementById("score").innerText = totalPoints + "/5";
     }
-    questions.splice(i, 1);
+    questions.splice(currentQuestionIndex, 1);
     if (questions.length === 0) {
         document.getElementById("repeat").style.display = "";
         return;
@@ -365,7 +309,7 @@ function checkAnswer(i) {
     document.getElementById("next").style.display = "";
 }
 
-var maxTime;
+let maxTime;
 
 document.getElementById("next").addEventListener("click", function () {
     handleGame(maxTime);
@@ -403,7 +347,7 @@ function handleGame(timerCount) {
             }
         }
     });
-    //generate all Qs from set difficulty also cache, if cached or empty dont generate
+    //generate all Qs from set difficulty also cache, if cached or empty don't generate
     document.getElementById("new-game").style.display = "none";
     document.getElementById("next").style.display = "none";
     document.getElementById("repeat").style.display = "none";
@@ -412,16 +356,15 @@ function handleGame(timerCount) {
 
     document.getElementById("score").innerText = totalPoints + "/5";
 
-
-    let i = Math.floor(Math.random() * questions.length);
-    displayQuestion(i);
+    currentQuestionIndex = Math.floor(Math.random() * questions.length);
+    displayQuestion(currentQuestionIndex);
     const countdown = setInterval(() => {
         timerCount--;
         progressBar.style.width = (timerCount / maxTime) * 100 + '%';
 
         if (timerCount === 0) {
             clearInterval(countdown);
-            checkAnswer(i);
+            checkAnswer();
         }
     }, 1000);
 }
