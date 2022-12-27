@@ -107,7 +107,7 @@ const drop = (e) => {
         let existingTile = answerArea.firstElementChild;
         dragContainer.appendChild(existingTile);
         existingTile.style.position = "absolute";
-        existingTile.style.width = "33%";
+        existingTile.style.width = "45%";
         let existingTileID = Number(existingTile.id.slice(-1));
         if (existingTileID % 2 === 0) {
             existingTile.style.left = "0";
@@ -251,7 +251,7 @@ const clickCheck = (e) => {
         let existingTile = answerArea.firstElementChild;
         dragContainer.appendChild(existingTile);
         existingTile.style.position = "absolute";
-        existingTile.style.width = "33%";
+        existingTile.style.width = "45%";
         let existingTileID = Number(existingTile.id.slice(-1));
         if (existingTileID % 2 === 0) {
             existingTile.style.left = "0";
