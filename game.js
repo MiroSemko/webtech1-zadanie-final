@@ -385,21 +385,21 @@ document.getElementById("help").addEventListener("click", function () {
 function handleGame(timerCount) {
     answerObjects.forEach((element) => {
         element.style.position = "absolute";
-        element.style.width = "33%";
+        element.style.width = "45%";
         let elementID = Number(element.id.slice(-1));
         if (elementID % 2 === 0) {
-            element.style.left = "10%";
+            element.style.left = "0";
             if (elementID < 2) {
-                element.style.top = "50%";
+                element.style.top = "57%";
             } else {
-                element.style.top = "70%";
+                element.style.top = "75%";
             }
         } else {
-            element.style.right = "10%";
+            element.style.right = "0";
             if (elementID < 2) {
-                element.style.top = "50%";
+                element.style.top = "57%";
             } else {
-                element.style.top = "70%";
+                element.style.top = "75%";
             }
         }
     });
