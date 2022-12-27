@@ -6,10 +6,6 @@
     <title>PWA Game</title>
     <!--    <link rel="manifest" href="manifest.json"> //PWA-->
     <link href="style.css" rel="stylesheet">
-    <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-            rel="stylesheet"
-    />
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
 
@@ -24,24 +20,24 @@
             <div class="col-4 offset-2 text-center" id="difficulty"></div>
             <button id="help" style="position: absolute; right: 15px; top: 43px">?</button>
         </div>
-        <div class="question-div h-30 justify-content-center" style="text-align: center;">
+        <div class="question-div h-40 justify-content-center" style="text-align: center;">
             <p id="question"></p>
-            <div class="row" id="answer-area">
-                <div class="answer col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-10 offset-1"
-                     id="answer-select" style="border: 1px dashed navy"></div>
+            <div class="row justify-content-center" id="answer-area">
+                <div class="answer custom-col-6" id="answer-select"></div>
             </div>
-            <button class="mt-3 w-25" id="next" style="display: none">Pokracovat</button>
-            <button class="mt-3 w-25" id="repeat" style="display: none">Pokracovat</button>
-            <button class="mt-3 w-25" id="new-game" style="display: none">Nova hra</button>
+            <button class="next-button mt-3" id="next" style="display: none">POKRACOVAT</button>
+            <button class="next-button mt-3" id="repeat" style="display: none">POKRACOVAT</button>
+            <button class="next-button mt-3" id="new-game" style="display: none">NOVA HRA</button>
         </div>
         <div class="timer-div h-10">
             <div class="progress-bar" style="width: 0;"></div>
         </div>
-        <div class="answers-div row d-flex justify-content-around h-50 flex-wrap">
-            <div class="option col-4 offset-1" id="answer0" draggable="true"></div>
-            <div class="option col-4 offset-1" id="answer1" draggable="true"></div>
-            <div class="option col-4 offset-1" id="answer2" draggable="true"></div>
-            <div class="option col-4 offset-1" id="answer3" draggable="true"></div>
+<!--        <div class="answers-div row d-flex justify-content-around h-50 flex-wrap">-->
+        <div class="answers-div row flex-grow-0 h-40">
+            <div class="option custom-col-6" id="answer0" draggable="true"></div>
+            <div class="option custom-col-6" id="answer1" draggable="true"></div>
+            <div class="option custom-col-6" id="answer2" draggable="true"></div>
+            <div class="option custom-col-6" id="answer3" draggable="true"></div>
         </div>
     </div>
 </div>
@@ -50,9 +46,9 @@
     <h3>QUIZ ME!</h3>
 
     <p id="result"></p>
-    <button class="start" id="start-easy" value="lahka">Ľahká</button>
-    <button class="start" id="start-medium" value="stredna">Stredná</button>
-    <button class="start" id="start-hard" value="tazka">Tažká</button>
+    <button class="start m-2" id="start-easy" value="lahka">Ľahká</button>
+    <button class="start m-2" id="start-medium" value="stredna">Stredná</button>
+    <button class="start m-2" id="start-hard" value="tazka">Tažká</button>
 </div>
 
 

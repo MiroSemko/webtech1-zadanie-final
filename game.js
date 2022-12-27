@@ -202,6 +202,7 @@ buttons.forEach((element) => {
     element.addEventListener("click", function () {
         currentElement = "";
         document.getElementById("game-container").style.display = "block";
+
         controls.classList.add("hide");
         element.classList.add("hide");
 
@@ -316,7 +317,6 @@ function displayQuestion(i) {
 
 
 const questionArea = document.getElementById("question")
-const answerArea = document.getElementById("answer-area")
 function checkAnswer(i) {
     // console.log(questions)
     // console.log(i)
