@@ -110,18 +110,18 @@ const drop = (e) => {
         existingTile.style.width = "33%";
         let existingTileID = Number(existingTile.id.slice(-1));
         if (existingTileID % 2 === 0) {
-            existingTile.style.left = "10%";
+            existingTile.style.left = "0";
             if (existingTileID < 2) {
-                existingTile.style.top = "50%";
+                existingTile.style.top = "57%";
             } else {
-                existingTile.style.top = "70%";
+                existingTile.style.top = "75%";
             }
         } else {
-            existingTile.style.right = "10%";
+            existingTile.style.right = "0";
             if (existingTileID < 2) {
-                existingTile.style.top = "50%";
+                existingTile.style.top = "57%";
             } else {
-                existingTile.style.top = "70%";
+                existingTile.style.top = "75%";
             }
         }
     }
@@ -254,18 +254,18 @@ const clickCheck = (e) => {
         existingTile.style.width = "33%";
         let existingTileID = Number(existingTile.id.slice(-1));
         if (existingTileID % 2 === 0) {
-            existingTile.style.left = "10%";
+            existingTile.style.left = "0";
             if (existingTileID < 2) {
-                existingTile.style.top = "50%";
+                existingTile.style.top = "57%";
             } else {
-                existingTile.style.top = "70%";
+                existingTile.style.top = "75%";
             }
         } else {
-            existingTile.style.right = "10%";
+            existingTile.style.right = "0";
             if (existingTileID < 2) {
-                existingTile.style.top = "50%";
+                existingTile.style.top = "57%";
             } else {
-                existingTile.style.top = "70%";
+                existingTile.style.top = "75%";
             }
         }
     }
