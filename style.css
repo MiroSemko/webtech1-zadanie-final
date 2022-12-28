@@ -16,7 +16,8 @@ div {
     color: white;
 }
 #question {
-    color: white !important;
+    color: #FDE0C1 !important;
+    font-size: x-large;
 }
 
 body {
@@ -44,15 +45,29 @@ body {
 .container {
     width: 90%;
     max-width: 37.5em;
-    background-color: #40479A;
-    padding: 3em 0.5em;
+    /*background-color: white;*/
+    padding: 1.2em 0.8em;
     position: absolute;
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
     /*border-radius: 0.8em;*/
     display: block;
+    /*background-image: ;*/
 }
+
+.space{
+    /*aspect-ratio: 1920/1080;*/
+    height: 100%;
+    /*background-repeat: no-repeat;*/
+    /*background-position: center;*/
+    /*background-size: cover;*/
+}
+
+#bg-img{
+    background-image: url("./layered-waves-haikei2.svg");
+}
+
 h3 {
     text-align: center;
     width: 60%;
@@ -83,7 +98,23 @@ img {
     display: grid;
     place-items: center;
     border-radius: 20px;
+    border: white 3px dashed;
+    background-color: rgba(1,1,1,0) !important;
     z-index: 111;
+
+    align-content: space-between;
+    align-items: start;
+}
+
+.answer.dropped{
+    border-style: solid;
+    background-color: #FDFDFD !important;
+}
+
+
+.answer.droppable-hover{
+    border-width: 5px;
+    transform: scale(1.1);
 }
 
 #answer-area{
@@ -113,9 +144,26 @@ img {
     color: #12161C;
 }
 
+
+/*#answer0{*/
+/*    background-image: url("./blob-scene-haikei (3).svg") !important;*/
+/*}*/
+/*#answer1{*/
+/*    background-image: url("./blob-scene-haikei (2).svg") !important;*/
+/*}*/
+/*#answer2{*/
+/*    background-image: url("./blob-scene-haikei (1).svg") !important;*/
+/*}*/
+/*#answer3{*/
+/*    background-image: url("./blob-scene-haikei.svg") !important;*/
+/*}*/
+
 .custom-col-6{
     flex: 0 0 50%;
     max-width: 45%;
+    /*background-image: url("./blob-scene-haikei (3).svg") !important;*/
+    /**/
+    background-size: cover;
     background-color: #FDFDFD;
 }
 
@@ -136,7 +184,7 @@ img {
 }
 .controls-container button {
     font-size: 1.12em;
-    padding: 0.8em 1em;
+    /*padding: 0.8em 1em;*/
     border-radius: 3.2em;
     border: none;
     outline: none;
@@ -159,6 +207,7 @@ img {
     border: 0;
     width: 40%;
     height: 20%;
+    color: white;
 }
 
 html,

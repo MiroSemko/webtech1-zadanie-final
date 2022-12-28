@@ -13,36 +13,37 @@
 </head>
 <body>
 
-<div class="container h-100" id="game-container">
-    <div class="game-wrapper h-100">
-        <div class="game-info-div h-10 row" id="info">
-            <div class="col-2" id="score"></div>
-            <div class="col-4 offset-2 text-center" id="difficulty"></div>
-            <button class="col-2 offset-1" id="joker">Žolík nevyužitý</button>
+<div class="space" id="bg-img">
+    <div class="container h-100" id="game-container">
+        <div class="game-wrapper h-100">
+            <div class="game-info-div h-10 row" id="info">
+                <div class="col-2" id="score"></div>
+                <div class="col-4 offset-2 text-center" id="difficulty"></div>
+                <button class="col-2 offset-1" id="joker">Žolík nevyužitý</button>
             <button id="help" style="position: absolute; right: 0; top: 43px">?</button>
-        </div>
-        <div class="question-div h-40 justify-content-center" style="text-align: center;">
-            <p id="question"></p>
-            <div class="row justify-content-center" id="answer-area">
-                <div class="answer custom-col-6" id="answer-select"></div>
             </div>
-            <button class="next-button mt-3" id="next" style="display: none">POKRACOVAT</button>
-            <button class="next-button mt-3" id="repeat" style="display: none">POKRACOVAT</button>
-            <button class="next-button mt-3" id="new-game" style="display: none">NOVA HRA</button>
-        </div>
-        <div class="timer-div h-10">
-            <div class="progress-bar" style="width: 0;"></div>
-        </div>
-<!--        <div class="answers-div row d-flex justify-content-around h-50 flex-wrap">-->
-        <div class="answers-div row flex-grow-0 h-40">
-            <div class="option custom-col-6" id="answer0" draggable="true"></div>
-            <div class="option custom-col-6" id="answer1" draggable="true"></div>
-            <div class="option custom-col-6" id="answer2" draggable="true"></div>
-            <div class="option custom-col-6" id="answer3" draggable="true"></div>
+            <div class="question-div h-40 justify-content-center" style="text-align: center;">
+                <p id="question"></p>
+                <div class="row justify-content-center" id="answer-area">
+                    <div class="answer custom-col-6" id="answer-select"></div>
+                </div>
+                <button class="next-button mt-3" id="next" style="display: none">POKRACOVAT</button>
+                <button class="next-button mt-3" id="repeat" style="display: none">POKRACOVAT</button>
+                <button class="next-button mt-3" id="new-game" style="display: none">NOVA HRA</button>
+            </div>
+            <div class="timer-div h-10">
+                <div class="progress-bar" style="width: 0;"></div>
+            </div>
+    <!--        <div class="answers-div row d-flex justify-content-around h-50 flex-wrap">-->
+            <div class="answers-div row flex-grow-0 h-40">
+                <div class="option custom-col-6" id="answer0" draggable="true"></div>
+                <div class="option custom-col-6" id="answer1" draggable="true"></div>
+                <div class="option custom-col-6" id="answer2" draggable="true"></div>
+                <div class="option custom-col-6" id="answer3" draggable="true"></div>
+            </div>
         </div>
     </div>
 </div>
-
 <div class="controls-container">
     <h3>QUIZ ME!</h3>
 

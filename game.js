@@ -52,6 +52,24 @@ let currentElement = "";
 //     }
 // };
 
+function dragEnter(event) {
+    if(!event.target.classList.contains("dropped")) {
+        event.target.classList.add("droppable-hover");
+    }
+}
+
+// function dragOver(event) {
+//     if(!event.target.classList.contains("dropped")) {
+//         event.preventDefault(); // Prevent default to allow drop
+//     }
+// }
+
+function dragLeave(event) {
+    if(!event.target.classList.contains("dropped")) {
+        event.target.classList.remove("droppable-hover");
+    }
+}
+
 //Drag & Drop Functions
 function dragStart(e) {
     e.dataTransfer.setData("text/plain", e.target.id);
@@ -117,6 +135,10 @@ const drop = (e) => {
     piece.style.position = "static";
 
     clickedElementIndex = id.slice(-1);
+
+    document.getElementById("answer-select").classList.add("dropped");
+    document.getElementById("answer-select").classList.remove("droppable-hover");
+
 }
 
 const shakeDetector = new window.ShakeDetector();
@@ -195,6 +217,9 @@ const clickCheck = (e) => {
     answerArea.appendChild(piece);
     piece.style.width = "98%";
     piece.style.position = "static";
+
+    document.getElementById("answer-select").classList.add("dropped");
+
 }
 
 document.getElementById("joker").addEventListener("click", () => {
@@ -251,11 +276,19 @@ async function loadGame(difficulties, current) {
         // element.addEventListener("touchstart", dragStart);
         // element.addEventListener("touchend", drop);
         // element.addEventListener("touchmove", touchMove);
+
+
     });
 
 
     document.getElementById("answer-select").addEventListener("dragover", dragOver);
     document.getElementById("answer-select").addEventListener("drop", drop);
+
+
+    document.getElementById("answer-select").addEventListener("dragenter", dragEnter);
+    document.getElementById("answer-select").addEventListener("dragleave", dragLeave);
+
+
 
     //start game
     handleGame(t);
@@ -381,6 +414,7 @@ function handleGame(timerCount) {
 
     currentQuestionIndex = Math.floor(Math.random() * questions.length);
     displayQuestion(currentQuestionIndex);
+    document.getElementById("answer-select").classList.remove("dropped");
     const countdown = setInterval(() => {
         timerCount--;
         progressBar.style.width = (timerCount / maxTime) * 100 + '%';
