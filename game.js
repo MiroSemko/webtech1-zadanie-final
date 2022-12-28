@@ -415,6 +415,7 @@ function handleGame(timerCount) {
     currentQuestionIndex = Math.floor(Math.random() * questions.length);
     displayQuestion(currentQuestionIndex);
     document.getElementById("answer-select").classList.remove("dropped");
+    clickedElementIndex = -1;
     const countdown = setInterval(() => {
         timerCount--;
         progressBar.style.width = (timerCount / maxTime) * 100 + '%';
