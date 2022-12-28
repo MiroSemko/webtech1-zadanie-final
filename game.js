@@ -24,7 +24,6 @@ let maxPoints;
 let currentQuestionIndex;
 let usedHelp = false;
 
-// const result = document.getElementById("result");
 const controls = document.querySelector(".controls-container");
 const dragContainer = document.querySelector(".answers-div");
 // const dropContainer = document.querySelector(".answer");
@@ -145,7 +144,7 @@ const shakeDetector = new window.ShakeDetector();
 const onShake = () => {
     console.log('shake!');
     if (!usedHelp) {
-        document.getElementById("joker").style.backgroundColor = "indianred";
+        document.getElementById("joker").style.backgroundColor = "#46484D";
         removeTwoOptions();
     }
 };
@@ -224,7 +223,7 @@ const clickCheck = (e) => {
 
 document.getElementById("joker").addEventListener("click", () => {
     if (!usedHelp) {
-        document.getElementById("joker").style.backgroundColor = "indianred";
+        document.getElementById("joker").style.backgroundColor = "#46484D";
         removeTwoOptions();
     }
 });
@@ -296,7 +295,7 @@ async function loadGame(difficulties, current) {
 
 function removeTwoOptions() {
     usedHelp = true;
-    document.getElementById("joker").innerText = "Žolík využitý";
+    // document.getElementById("joker").innerText = "Žolík využitý";
     const correct = Number(questions[currentQuestionIndex].correct);
     let random1 = Math.floor(Math.random() * 4);
     let random2 = Math.floor(Math.random() * 4);
@@ -377,9 +376,9 @@ document.getElementById("new-game").addEventListener("click", function () {
     open("./index.html", "_self");
 })
 
-document.getElementById("help").addEventListener("click", function () {
-    console.log("help")
-})
+// document.getElementById("help").addEventListener("click", function () {
+//     console.log("help")
+// })
 
 function handleGame(timerCount) {
     answerObjects.forEach((element) => {
