@@ -1,15 +1,21 @@
 {
-  "name": "My PWA",
-  "short_name": "My PWA",
-  "start_url": "index.html",
+  "name": "Quiz Me!",
+  "short_name": "Quiz Me!",
+  "start_url": ".",
+  "background_color": "#181A1F",
+  "theme_color": "#FFFFFF",
   "display": "standalone",
   "icons": [
     {
-      "src": "icon3.png",
-      "sizes": "192x192",
+      "src": "./favicon512.png",
+      "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "./favicon.png",
+      "sizes": "225x225",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
-  ],
-  "theme_color": "#000000",
-  "background_color": "#FFFFFF"
+  ]
 }

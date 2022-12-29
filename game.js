@@ -1,19 +1,13 @@
 // PWA
-// if ('serviceWorker' in navigator) {
-//     window.addEventListener('load', () => {
-//         navigator.serviceWorker.register('service-worker.js').then(registration => {
-//             console.log('Service worker registered:', registration);
-//         }).catch(error => {
-//             console.log('Service worker registration failed:', error);
-//         });
-//     });
-// }
-// /PWA
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js').then(registration => {
+        console.log('Service worker registered:', registration);
+    }).catch(error => {
+        console.log('Service worker registration failed:', error);
+    });
+}
+// PWA
 
-
-//Initial References
-// let draggableObjects;
-// let dropPoints;
 
 const startEasy = document.getElementById("start-easy");
 const startMedium = document.getElementById("start-medium");
@@ -26,30 +20,11 @@ let usedHelp = false;
 
 const controls = document.querySelector(".controls-container");
 const dragContainer = document.querySelector(".answers-div");
-// const dropContainer = document.querySelector(".answer");
 
 
 let answerObjects;
 let currentDiff;
-
-// let deviceType = "";
-// let initialX = 0,
-//     initialY = 0;
 let currentElement = "";
-// let moveElement = false;
-
-//Detect touch device
-// const isTouchDevice = () => {
-//     try {
-//         //We try to create Touch Event (It would fail for desktops and throw error)
-//         document.createEvent("TouchEvent");
-//         deviceType = "touch";
-//         return true;
-//     } catch (e) {
-//         deviceType = "mouse";
-//         return false;
-//     }
-// };
 
 function dragEnter(event) {
     if(!event.target.classList.contains("dropped")) {
@@ -57,46 +32,19 @@ function dragEnter(event) {
     }
 }
 
-// function dragOver(event) {
-//     if(!event.target.classList.contains("dropped")) {
-//         event.preventDefault(); // Prevent default to allow drop
-//     }
-// }
-
 function dragLeave(event) {
     if(!event.target.classList.contains("dropped")) {
         event.target.classList.remove("droppable-hover");
     }
 }
 
-//Drag & Drop Functions
 function dragStart(e) {
     e.dataTransfer.setData("text/plain", e.target.id);
 }
 
-//Events fired on the drop target
 function dragOver(e) {
     e.preventDefault();
 }
-
-//For touchscreen movement
-// const touchMove = (e) => {
-//     if (moveElement) {
-//         e.preventDefault();
-//         let newX = e.touches[0].clientX;
-//         let newY = e.touches[0].clientY;
-//         let currentSelectedElement = document.getElementById(e.target.id);
-//         currentSelectedElement.parentElement.style.top =
-//             currentSelectedElement.parentElement.offsetTop - (initialY - newY) + "px";
-//         currentSelectedElement.parentElement.style.left =
-//             currentSelectedElement.parentElement.offsetLeft -
-//             (initialX - newX) +
-//             "px";
-//         initialX = newX;
-//         initialY - newY;
-//     }
-// };
-
 
 const drop = (e) => {
     e.preventDefault();
@@ -228,7 +176,6 @@ document.getElementById("joker").addEventListener("click", () => {
     }
 });
 
-
 let questions = [];
 
 let dif;
@@ -236,7 +183,7 @@ let cur;
 async function loadSettings(diff, curr){
     dif = diff;
     cur = curr;
-    loadGame(dif,cur);
+    await loadGame(dif,cur);
 }
 
 async function loadGame(difficulties, current) {
@@ -270,24 +217,13 @@ async function loadGame(difficulties, current) {
     answerObjects.forEach((element) => {
         element.addEventListener("click", clickCheck);
         element.addEventListener("dragstart", dragStart);
-
-        //for touch screen
-        // element.addEventListener("touchstart", dragStart);
-        // element.addEventListener("touchend", drop);
-        // element.addEventListener("touchmove", touchMove);
-
-
     });
-
 
     document.getElementById("answer-select").addEventListener("dragover", dragOver);
     document.getElementById("answer-select").addEventListener("drop", drop);
 
-
     document.getElementById("answer-select").addEventListener("dragenter", dragEnter);
     document.getElementById("answer-select").addEventListener("dragleave", dragLeave);
-
-
 
     //start game
     handleGame(t);
@@ -295,7 +231,6 @@ async function loadGame(difficulties, current) {
 
 function removeTwoOptions() {
     usedHelp = true;
-    // document.getElementById("joker").innerText = "Žolík využitý";
     const correct = Number(questions[currentQuestionIndex].correct);
     let random1 = Math.floor(Math.random() * 4);
     let random2 = Math.floor(Math.random() * 4);
@@ -334,25 +269,32 @@ function displayQuestion(i) {
     document.getElementById("answer3").innerText = questions[i].answers[3];
 }
 
+// Sound effects used from Pixabay.com
+const correct = new Audio("./cha-ching.mp3");
+const incorrect = new Audio("./failure.mp3");
+const win = new Audio("./success-fanfare.mp3");
 
 const questionArea = document.getElementById("question");
-// const answerArea = document.getElementById("answer-area");
 function checkAnswer() {
-    if (clickedElementIndex === questions[currentQuestionIndex].correct) { //if last char of ID of selected element === questions[i].correct
+    if (clickedElementIndex === questions[currentQuestionIndex].correct) {
         totalPoints++;
-        document.getElementById("score").innerText = totalPoints + "/5";
+        document.getElementById("score").innerText = totalPoints + "/" + maxPoints;
         if(totalPoints===maxPoints){
             console.log("win");
             questionArea.innerText = "Vyhra!!!";
+            win.play();
             totalPoints = 0
             document.getElementById("new-game").style.display = "";
             return;
         }
         questionArea.innerText = "Spravne";
+        correct.play();
+
     } else {
         questionArea.innerText = "Nespravne";
+        incorrect.play();
         totalPoints = 0;
-        document.getElementById("score").innerText = totalPoints + "/5";
+        document.getElementById("score").innerText = totalPoints + "/" + maxPoints;
     }
     questions.splice(currentQuestionIndex, 1);
     if (questions.length === 0) {
@@ -376,9 +318,9 @@ document.getElementById("new-game").addEventListener("click", function () {
     open("./index.html", "_self");
 })
 
-// document.getElementById("help").addEventListener("click", function () {
-//     console.log("help")
-// })
+document.getElementById("help").addEventListener("click", function () {
+    $('#myModal').modal('show')
+})
 
 function handleGame(timerCount) {
     answerObjects.forEach((element) => {
@@ -402,14 +344,13 @@ function handleGame(timerCount) {
             }
         }
     });
-    //generate all Qs from set difficulty also cache, if cached or empty don't generate
     document.getElementById("new-game").style.display = "none";
     document.getElementById("next").style.display = "none";
     document.getElementById("repeat").style.display = "none";
     maxTime = timerCount;
     progressBar.style.width = "100%";
 
-    document.getElementById("score").innerText = totalPoints + "/5";
+    document.getElementById("score").innerText = totalPoints + "/" + maxPoints;
 
     currentQuestionIndex = Math.floor(Math.random() * questions.length);
     displayQuestion(currentQuestionIndex);

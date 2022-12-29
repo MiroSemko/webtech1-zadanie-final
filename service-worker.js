@@ -1,39 +1,28 @@
-// service-worker.js
-
-const cacheName = 'pwa-game-v1';
 const filesToCache = [
-    '/',
-    '/index.html',
-    '/game.js',
-    // Add any other assets that should be cached here
+    './',
+    './index.html',
+    './game.js',
+    './favicon512.png',
+    './favicon.png',
+    './cha-ching.mp3',
+    './failure.mp3',
+    './success-fanfare.mp3',
+    './HelveticaNowText-Medium.ttf',
+    './settings.json',
+    './style.css',
 ];
 
 self.addEventListener('install', event => {
-    console.log('[Service Worker] Install');
+    console.log('Installed');
     event.waitUntil(
-        caches.open(cacheName).then(cache => {
+        caches.open("static").then(cache => {
             console.log('[Service Worker] Caching app shell');
             return cache.addAll(filesToCache);
         })
     );
 });
 
-self.addEventListener('activate', event => {
-    console.log('[Service Worker] Activate');
-    event.waitUntil(
-        caches.keys().then(keyList => {
-            return Promise.all(keyList.map(key => {
-                if (key !== cacheName) {
-                    console.log('[Service Worker] Removing old cache', key);
-                    return caches.delete(key);
-                }
-            }));
-        })
-    );
-});
-
 self.addEventListener('fetch', event => {
-    console.log('[Service Worker] Fetch', event.request.url);
     event.respondWith(
         caches.match(event.request).then(response => {
             return response || fetch(event.request);

@@ -3,13 +3,19 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="theme-color" content="#000000">
     <title>PWA Game</title>
-    <!--    <link rel="manifest" href="manifest.json"> //PWA-->
-    <link href="style.css" rel="stylesheet">
+    <link href="./favicon512.png" rel="icon" type="image/x-icon">
+    <link href="./manifest.json" rel="manifest">
+    <link rel="apple-touch-icon" href="./favicon.png">
+    <link href="./style.css" rel="stylesheet">
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
-
     <script src="https://unpkg.com/shake-detector"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 
@@ -28,7 +34,10 @@
                 <div class="col-3 d-flex justify-content-start align-items-start">
                     <button id="joker">Žolík</button>
                 </div>
-<!--            <button id="help" style="position: absolute; right: 0; top: 43px">?</button>-->
+                <button id="help"
+                        style="position: absolute; right: 0; top: 43px;background-color: dodgerblue; border-radius: 10px">
+                    &#10067;
+                </button>
             </div>
             <div class="question-div h-40 justify-content-center" style="text-align: center;">
                 <p id="question"></p>
@@ -42,12 +51,11 @@
             <div class="timer-div h-10">
                 <div class="progress-bar" style="width: 0;"></div>
             </div>
-    <!--        <div class="answers-div row d-flex justify-content-around h-50 flex-wrap">-->
             <div class="answers-div row flex-grow-0 h-40">
-                <div class="option custom-col-6" id="answer0" draggable="true"></div>
-                <div class="option custom-col-6" id="answer1" draggable="true"></div>
-                <div class="option custom-col-6" id="answer2" draggable="true"></div>
-                <div class="option custom-col-6" id="answer3" draggable="true"></div>
+                <div class="option custom-col-6" draggable="true" id="answer0"></div>
+                <div class="option custom-col-6" draggable="true" id="answer1"></div>
+                <div class="option custom-col-6" draggable="true" id="answer2"></div>
+                <div class="option custom-col-6" draggable="true" id="answer3"></div>
             </div>
         </div>
     </div>
@@ -63,6 +71,24 @@
     </div>
 </div>
 
+<div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Napoveda k hre</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Zatvorit</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="game.js"></script>
 </body>
