@@ -1,3 +1,4 @@
+const cacheName = "progressCache";
 const filesToCache = [
     './',
     './index.html',
@@ -15,7 +16,7 @@ const filesToCache = [
 self.addEventListener('install', event => {
     console.log('Installed');
     event.waitUntil(
-        caches.open("static").then(cache => {
+        caches.open(cacheName).then(cache => {
             console.log('[Service Worker] Caching app shell');
             return cache.addAll(filesToCache);
         })
@@ -23,9 +24,25 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
+    // console.log("fetched!");
     event.respondWith(
         caches.match(event.request).then(response => {
+            // console.log(response);
             return response || fetch(event.request);
         })
     );
 });
+
+// self.addEventListener('activate', event => {
+//     console.log('[Service Worker] Activate');
+//     event.waitUntil(
+//         caches.keys().then(keyList => {
+//             return Promise.all(keyList.map(key => {
+//                 if (key !== cacheName) {
+//                     console.log('[Service Worker] Removing old cache', key);
+//                     return caches.delete(key);
+//                 }
+//             }));
+//         })
+//     );
+// });
