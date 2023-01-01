@@ -32,17 +32,3 @@ self.addEventListener('fetch', event => {
         })
     );
 });
-
-// self.addEventListener('activate', event => {
-//     console.log('[Service Worker] Activate');
-//     event.waitUntil(
-//         caches.keys().then(keyList => {
-//             return Promise.all(keyList.map(key => {
-//                 if (key !== cacheName) {
-//                     console.log('[Service Worker] Removing old cache', key);
-//                     return caches.delete(key);
-//                 }
-//             }));
-//         })
-//     );
-// });

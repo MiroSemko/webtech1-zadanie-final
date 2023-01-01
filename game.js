@@ -9,17 +9,16 @@ if ('serviceWorker' in navigator) {
 // PWA
 
 
-// global constants and variables - check probably done
+// global constants and variables
 
 const startEasy = document.getElementById("start-easy");
 const startMedium = document.getElementById("start-medium");
 const startHard = document.getElementById("start-hard");
 const buttons = [startEasy, startMedium, startHard];
-
 const questionText = document.getElementById("question");
-
 const initPageDiv = document.querySelector(".controls-container");
 const draggableDivs = document.querySelector(".answers-div");
+const progressBar = document.querySelector('.progress-bar');
 
 // Sound effects used from Pixabay.com //
 const correct = new Audio("./cha-ching.mp3");
@@ -34,20 +33,13 @@ let usedHelp = false;
 let resume = false;
 let currentDiff;
 let questions = [];
-
 let answerDivs;
-
 let clickedElementIndex = null;
-
 let dif;
 let cur;
-
 let q;
-
 let maxTime;
 
-
-const progressBar = document.querySelector('.progress-bar');
 
 const shakeDetector = new window.ShakeDetector();
 const onShake = () => {
@@ -64,38 +56,10 @@ const drop = (e) => {
     const id = e.dataTransfer.getData('text/plain');
     const piece = document.getElementById(id);
 
-    let answerArea = document.getElementById("answer-select");
-
-    if (answerArea.hasChildNodes()) {
-        let existingTile = answerArea.firstElementChild;
-        draggableDivs.appendChild(existingTile);
-        existingTile.style.position = "absolute";
-        existingTile.style.width = "45%";
-        let existingTileID = Number(existingTile.id.slice(-1));
-        if (existingTileID % 2 === 0) {
-            existingTile.style.left = "0";
-            if (existingTileID < 2) {
-                existingTile.style.top = "57%";
-            } else {
-                existingTile.style.top = "75%";
-            }
-        } else {
-            existingTile.style.right = "0";
-            if (existingTileID < 2) {
-                existingTile.style.top = "57%";
-            } else {
-                existingTile.style.top = "75%";
-            }
-        }
-    }
-
-    answerArea.appendChild(piece);
-    piece.style.width = "90%";
-    piece.style.position = "static";
+    dragAnswer(piece);
 
     clickedElementIndex = id.slice(-1);
 
-    document.getElementById("answer-select").classList.add("dropped");
     document.getElementById("answer-select").classList.remove("droppable-hover");
 
 }
@@ -104,44 +68,21 @@ const clickCheck = (e) => {
     clickedElementIndex = e.target.id.slice(-1);
     const selectedID = e.target.id;
     const piece = document.getElementById(selectedID);
-    let answerArea = document.getElementById("answer-select");
-    if (answerArea.hasChildNodes()) {
-        let existingTile = answerArea.firstElementChild;
-        draggableDivs.appendChild(existingTile);
-        existingTile.style.position = "absolute";
-        existingTile.style.width = "45%";
-        let existingTileID = Number(existingTile.id.slice(-1));
-        if (existingTileID % 2 === 0) {
-            existingTile.style.left = "0";
-            if (existingTileID < 2) {
-                existingTile.style.top = "57%";
-            } else {
-                existingTile.style.top = "75%";
-            }
-        } else {
-            existingTile.style.right = "0";
-            if (existingTileID < 2) {
-                existingTile.style.top = "57%";
-            } else {
-                existingTile.style.top = "75%";
-            }
-        }
-    }
-    answerArea.appendChild(piece);
-    piece.style.width = "98%";
-    piece.style.position = "static";
 
-    document.getElementById("answer-select").classList.add("dropped");
+    dragAnswer(piece);
 
 }
+
 
 /////////////////////////           CODE ON SCRIPT LOAD          ////////////////////////////////
 
 if (localStorage.getItem("obtiaznost") != null) {
     resume = true;
+    console.log(resume);
 }
 
 if (!resume) {
+    console.log("new game");
     buttons.forEach((element) => {
         element.addEventListener("click", function () {
             document.getElementById("game-container").style.display = "block";
@@ -156,6 +97,7 @@ if (!resume) {
         })
     });
 } else {
+    console.log("continue");
     document.getElementById("game-container").style.display = "block";
     initPageDiv.classList.add("hide");
     buttons.forEach((element) => {
@@ -191,8 +133,6 @@ document.getElementById("new-game").addEventListener("click", function () {
 document.getElementById("help").addEventListener("click", function () {
     $('#myModal').modal('show')
 });
-
-///////////////////////////////////////////////////////////////////////////////////////
 
 
 // function declarations
@@ -235,13 +175,42 @@ function initializeShakeListener() {
     window.addEventListener(ShakeDetector.SHAKE_EVENT, onShake);
 }
 
-function loadSettings(diff, curr) {
+function dragAnswer(draggedPiece) {
+    let answerArea = document.getElementById("answer-select");
+    if (answerArea.hasChildNodes()) {
+        let existingTile = answerArea.firstElementChild;
+        draggableDivs.appendChild(existingTile);
+        existingTile.style.position = "absolute";
+        existingTile.style.width = "45%";
+        let existingTileID = Number(existingTile.id.slice(-1));
+        if (existingTileID % 2 === 0) {
+            existingTile.style.left = "0";
+            if (existingTileID < 2) {
+                existingTile.style.top = "57%";
+            } else {
+                existingTile.style.top = "75%";
+            }
+        } else {
+            existingTile.style.right = "0";
+            if (existingTileID < 2) {
+                existingTile.style.top = "57%";
+            } else {
+                existingTile.style.top = "75%";
+            }
+        }
+    }
+    answerArea.appendChild(draggedPiece);
+    draggedPiece.style.width = "98%";
+    draggedPiece.style.position = "static";
+
+    document.getElementById("answer-select").classList.add("dropped");
+}
+
+async function loadSettings(diff, curr) {
     dif = diff;
     cur = curr;
-    // localStorage.setItem("obtiaznost", curr);
-    // localStorage.setItem("body", "0");
-    // localStorage.setItem("otazky", "")
-    loadGame(diff, curr);
+    localStorage.setItem("obtiaznost", curr);
+    await loadGame(diff, curr);
 }
 
 function loadQuestions() {
@@ -256,7 +225,7 @@ function loadQuestions() {
     }
 }
 
-async function loadGame(difficulties, current) {
+function loadGame(difficulties, current) {
     let t;
     switch (current) {
         case "lahka":
@@ -279,7 +248,10 @@ async function loadGame(difficulties, current) {
             break;
     }
     loadQuestions();
-    maxPoints = questions.length;
+    if (!resume) {
+        localStorage.setItem("max_body", String(questions.length));
+    }
+    maxPoints = Number(localStorage.getItem("max_body"));
 
     answerDivs = document.querySelectorAll(".option");
 
@@ -346,25 +318,23 @@ function checkAnswer() {
             win.play();
             totalPoints = 0;
             document.getElementById("new-game").style.display = "";
+            localStorage.clear();
             return;
         }
         questionText.innerText = "Spravne";
         correct.play();
         questions.splice(currentQuestionIndex, 1);
-        localStorage.setItem("otazky", JSON.stringify(questions));
     } else {
         questionText.innerText = "Nespravne";
         incorrect.play();
         totalPoints = 0;
         loadQuestions();
         console.log(questions);
-        localStorage.setItem("otazky", JSON.stringify(questions));
         document.getElementById("score").innerText = Number(totalPoints) + "/" + maxPoints;
     }
-    if (questions.length === 0) {
-        document.getElementById("repeat").style.display = "";
-        return;
-    }
+    localStorage.setItem("body", String(totalPoints));
+    localStorage.setItem("otazky", JSON.stringify(questions));
+
     document.getElementById("next").style.display = "";
 }
 
