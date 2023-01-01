@@ -29,14 +29,14 @@
                 </div>
                 <div class="col-6 d-flex flex-column align-items-center">
                     <div id="difficulty"></div>
-                    <p class="info-text">Obtiaznost</p>
+                    <p class="info-text">Obtiažnosť</p>
                 </div>
                 <div class="col-3 d-flex justify-content-start align-items-start">
                     <button id="joker">Žolík</button>
                 </div>
-                <button id="help"
-                        style="position: absolute; right: 0; top: 43px;background-color: dodgerblue; border-radius: 10px">
-                    &#10067;
+                <button id="stop-game"
+                        style="position: absolute; right: 0; top: 26px; border-radius: 20px;height: 32px;width: 100px;background-color: khaki">
+                    Nová hra
                 </button>
             </div>
             <div class="question-div h-40 justify-content-center" style="text-align: center;">
@@ -44,9 +44,9 @@
                 <div class="row justify-content-center" id="answer-area">
                     <div class="answer custom-col-6" id="answer-select"></div>
                 </div>
-                <button class="next-button mt-3" id="next" style="display: none">POKRACOVAT</button>
-                <button class="next-button mt-3" id="repeat" style="display: none">POKRACOVAT</button>
-                <button class="next-button mt-3" id="new-game" style="display: none">NOVA HRA</button>
+                <button class="next-button mt-3" id="next" style="display: none">Pokračovať</button>
+                <button class="next-button mt-3" id="repeat" style="display: none">Pokračovať</button>
+                <button class="next-button mt-3" id="new-game" style="display: none">Nová hra</button>
             </div>
             <div class="timer-div h-10">
                 <div class="progress-bar" style="width: 0;"></div>
@@ -62,6 +62,7 @@
 </div>
 <div class="controls-container">
     <h3>QUIZ ME!</h3>
+    <h5 style="display: none">Miroslav Semko & Tomáš Zaťko</h5>
 
     <button class="start m-2" id="start-easy" value="lahka">Ľahká</button>
     <button class="start m-2" id="start-medium" value="stredna">Stredná</button>
@@ -70,36 +71,38 @@
     <div id="instructions" style="width: 50%;background-color: #e3e3e3;padding: 10px; border-radius: 10px;margin-top: 30px; text-align: justify;color: black">
         Začnite výberom obtiažnosti. Na výber sú možnosti Ľahká, Stredná a Ťažká. V závislosti od vybranej obtiažnosti
         budete mať na zodpovedanie otázky kratší čas. Výber odpovede je možný kliknutím na odpoveď alebo presunutím
-        odpovede do vyznačeného okienka. Počas hry je možné raz kliknúť na tlačidlo "Žolík" a tým využiť žolíka<span style="color: firebrick">*</span> - odstránenie
+        odpovede do vyznačeného okienka. Počas hry je možné raz kliknúť na tlačidlo „Žolík“ a tým využiť žolíka<span style="color: firebrick">*</span> - odstránenie
         dvoch nesprávnych odpovedí. Túto pomôcku však môžete využiť len raz za hru! V prípade, že správne odpoviete na
         otázku, vaše body sú navýšené o 1 bod. V prípade nesprávnej odpovede sú vaše body vynulované a otázky sa
         obnovia, takže začínate odznova. Po dosiahnutí maximálneho počtu bodov, teda správnom zodpovedaní všetkých
         otázok z danej obtiažnosti, je možné spustiť novú hru. Hra po každej odpovedi ukladá priebeh a počet bodov,
         takže je možné sa k hre vrátiť aj po zatvorení okna prehliadača.<br>
-
-        <br><span style="color: firebrick">* - Na mobilnom zariadení je možné žolíka využiť "zahŕkaním" telefónu. Na Apple telefónoch s
+        <br>
+        <br><span style="color: firebrick">* - Na mobilnom zariadení je možné žolíka využiť „zatrasením“ telefónu. Na Apple telefónoch s
             iOS verziou 13.0 a vyššou je potrebné povoliť využitie senzorov na telefóne.</span>
     </div>
 </div>
 
-<div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">Napoveda k hre</h5>
-                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
+<!--<div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" tabindex="-1">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="myModalLabel">Nápoveda k hre</h5>-->
+<!--                <button aria-label="Close" class="close" data-dismiss="modal" type="button">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
 
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-dismiss="modal" type="button">Zatvorit</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button class="btn btn-secondary" data-dismiss="modal" type="button">Zatvorit</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<footer style="text-align: center;color: white;position: absolute;bottom: 0;width: 100%">&copy; Miroslav Semko & Tomáš Zaťko</footer>
 
 <script src="game.js"></script>
 </body>

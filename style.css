@@ -4,9 +4,18 @@
 }
 
 @media print {
-    .space, button {
-        display: none;
+    .space, button, footer {
+        display: none !important;
     }
+
+    h5 {
+        display: block !important;
+    }
+
+    span {
+        color: black !important;
+    }
+
     #instructions {
         display: block;
     }

@@ -29,7 +29,7 @@ const win = new Audio("./success-fanfare.mp3");
 let totalPoints = localStorage.getItem("body") === null ? 0 : localStorage.getItem("body");
 let maxPoints;
 let currentQuestionIndex;
-let usedHelp = false;
+let usedHelp = localStorage.getItem("jokerUsed") !== null;
 let resume = false;
 let currentDiff;
 let questions = [];
@@ -97,6 +97,9 @@ if (!resume) {
         })
     });
 } else {
+    if (usedHelp) {
+        document.getElementById("joker").style.backgroundColor = "#46484D";
+    }
     console.log("continue");
     document.getElementById("game-container").style.display = "block";
     initPageDiv.classList.add("hide");
@@ -113,6 +116,7 @@ if (!resume) {
 
 document.getElementById("joker").addEventListener("click", () => {
     if (!usedHelp) {
+        localStorage.setItem("jokerUsed", "used");
         document.getElementById("joker").style.backgroundColor = "#46484D";
         removeTwoOptions();
     }
@@ -130,9 +134,15 @@ document.getElementById("new-game").addEventListener("click", function () {
     open("./index.html", "_self");
 });
 
-document.getElementById("help").addEventListener("click", function () {
-    $('#myModal').modal('show')
+document.getElementById("stop-game").addEventListener("click", function () {
+    localStorage.clear();
+    usedHelp = false;
+    open("./index.html", "_self");
 });
+
+// document.getElementById("help").addEventListener("click", function () {
+//     $('#myModal').modal('show')
+// });
 
 
 // function declarations
@@ -314,18 +324,18 @@ function checkAnswer() {
         document.getElementById("score").innerText = Number(totalPoints) + "/" + maxPoints;
         if (totalPoints === maxPoints) {
             console.log("win");
-            questionText.innerText = "Vyhra!!!";
+            questionText.innerText = "Výhra!!!";
             win.play();
             totalPoints = 0;
             document.getElementById("new-game").style.display = "";
             localStorage.clear();
             return;
         }
-        questionText.innerText = "Spravne";
+        questionText.innerText = "Správne";
         correct.play();
         questions.splice(currentQuestionIndex, 1);
     } else {
-        questionText.innerText = "Nespravne";
+        questionText.innerText = "Nesprávne";
         incorrect.play();
         totalPoints = 0;
         loadQuestions();
@@ -360,6 +370,8 @@ function handleGame(timerCount) {
             }
         }
     });
+
+    document.getElementById("stop-game").style.display = "";
     document.getElementById("new-game").style.display = "none";
     document.getElementById("next").style.display = "none";
     document.getElementById("repeat").style.display = "none";
