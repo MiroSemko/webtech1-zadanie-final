@@ -21,7 +21,7 @@
     }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 700px){
     #instructions {
         width: 90% !important;
         font-size: x-small;
@@ -29,6 +29,12 @@
     }
     span {
         font-size: x-small;
+    }
+}
+
+@media screen and (max-width: 770px) {
+    #stop-game {
+        top: 70px !important;
     }
 }
 
@@ -162,6 +168,14 @@ img {
     width: 30px;
 }
 
+#stop-game {
+    background-color: khaki;
+    border-radius: 20px !important;
+    border: 0;
+    padding: 0.15rem 0.3rem;
+    margin-top: 0.3rem;
+}
+
 #joker {
     background-color: #F79D54;
     border-radius: 20px !important;
@@ -181,7 +195,6 @@ img {
     border-radius: 20px;
     text-align: center;
     padding: 20px;
-    /*margin: 10px;*/
     height: 15%;
     cursor: move;
     z-index: 1;
@@ -254,14 +267,6 @@ body{
 
 .h-10{
     height: 10%;
-}
-
-.h-20{
-    height: 20%;
-}
-
-.h-30{
-    height: 30%;
 }
 
 .h-40{

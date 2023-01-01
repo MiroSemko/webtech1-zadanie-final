@@ -7,12 +7,12 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "./favicon512.png",
+      "src": "./assets/favicon512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "./favicon.png",
+      "src": "./assets/favicon.png",
       "sizes": "225x225",
       "type": "image/png",
       "purpose": "any maskable"

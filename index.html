@@ -5,10 +5,10 @@
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="#000000" name="theme-color">
     <title>Quiz me!</title>
-    <link href="./favicon512.png" rel="icon" type="image/x-icon">
-    <link href="./manifest.json" rel="manifest">
-    <link href="./favicon.png" rel="apple-touch-icon">
-    <link href="./style.css" rel="stylesheet">
+    <link href="assets/favicon512.png" rel="icon" type="image/x-icon">
+    <link href="manifest.json" rel="manifest">
+    <link href="assets/favicon.png" rel="apple-touch-icon">
+    <link href="assets/style.css" rel="stylesheet">
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
     <script src="https://unpkg.com/shake-detector"></script>
@@ -27,17 +27,17 @@
                     <div id="score"></div>
                     <p class="info-text">Level</p>
                 </div>
-                <div class="col-6 d-flex flex-column align-items-center">
+                <div class="col-4 d-flex flex-column align-items-center">
                     <div id="difficulty"></div>
                     <p class="info-text">Obtiažnosť</p>
                 </div>
-                <div class="col-3 d-flex justify-content-start align-items-start">
+                <div class="col-1 d-flex justify-content-start align-items-start">
                     <button id="joker">Žolík</button>
                 </div>
-                <button id="stop-game"
-                        style="position: absolute; right: 0; top: 26px; border-radius: 20px;height: 32px;width: 100px;background-color: khaki">
-                    Nová hra
-                </button>
+                <div class="col-2 offset-1 d-flex justify-content-start align-items-start">
+                    <button id="stop-game">Nová hra</button>
+                </div>
+
             </div>
             <div class="question-div h-40 justify-content-center" style="text-align: center;">
                 <p id="question"></p>
@@ -68,14 +68,16 @@
     <button class="start m-2" id="start-medium" value="stredna">Stredná</button>
     <button class="start m-2" id="start-hard" value="tazka">Tažká</button>
 
-    <div id="instructions" style="width: 50%;background-color: #e3e3e3;padding: 10px; border-radius: 10px;margin-top: 30px; text-align: justify;color: black">
-        Začnite výberom obtiažnosti. Na výber sú možnosti Ľahká, Stredná a Ťažká. V závislosti od vybranej obtiažnosti
-        budete mať na zodpovedanie otázky kratší čas. Výber odpovede je možný kliknutím na odpoveď alebo presunutím
-        odpovede do vyznačeného okienka. Počas hry je možné raz kliknúť na tlačidlo „Žolík“ a tým využiť žolíka<span style="color: firebrick">*</span> - odstránenie
-        dvoch nesprávnych odpovedí. Túto pomôcku však môžete využiť len raz za hru! V prípade, že správne odpoviete na
+    <div id="instructions"
+         style="width: 75%;background-color: #e3e3e3;padding: 10px; border-radius: 10px;margin-top: 30px; text-align: justify;color: black">
+        Začnite výberom obtiažnosti. V závislosti od vybranej obtiažnosti
+        bude na zodpovedanie otázky daný čas. Výber odpovede je možný kliknutím na odpoveď alebo presunutím
+        odpovede do vyznačeného okienka. Počas hry je možné raz kliknúť na tlačidlo „Žolík“ a tým využiť žolíka<span
+            style="color: firebrick">*</span> - odstránenie
+        dvoch nesprávnych odpovedí. V prípade, že správne odpoviete na
         otázku, vaše body sú navýšené o 1 bod. V prípade nesprávnej odpovede sú vaše body vynulované a otázky sa
-        obnovia, takže začínate odznova. Po dosiahnutí maximálneho počtu bodov, teda správnom zodpovedaní všetkých
-        otázok z danej obtiažnosti, je možné spustiť novú hru. Hra po každej odpovedi ukladá priebeh a počet bodov,
+        obnovia. Po správnom zodpovedaní všetkých
+        otázok z danej obtiažnosti je možné spustiť novú hru. Hra po každej odpovedi ukladá priebeh a počet bodov,
         takže je možné sa k hre vrátiť aj po zatvorení okna prehliadača.<br>
         <br>
         <br><span style="color: firebrick">* - Na mobilnom zariadení je možné žolíka využiť „zatrasením“ telefónu. Na Apple telefónoch s
@@ -83,7 +85,9 @@
     </div>
 </div>
 
-<footer style="text-align: center;color: white;position: absolute;bottom: 0;width: 100%">&copy; Miroslav Semko & Tomáš Zaťko</footer>
+<footer style="text-align: center;color: white;position: absolute;bottom: 0;width: 100%">&copy; Miroslav Semko & Tomáš
+    Zaťko
+</footer>
 
 <script src="game.js"></script>
 </body>

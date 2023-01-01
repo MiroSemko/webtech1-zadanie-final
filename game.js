@@ -21,9 +21,9 @@ const draggableDivs = document.querySelector(".answers-div");
 const progressBar = document.querySelector('.progress-bar');
 
 // Sound effects used from Pixabay.com //
-const correct = new Audio("./cha-ching.mp3");
-const incorrect = new Audio("./failure.mp3");
-const win = new Audio("./success-fanfare.mp3");
+const correct = new Audio("./assets/cha-ching.mp3");
+const incorrect = new Audio("./assets/failure.mp3");
+const win = new Audio("./assets/success-fanfare.mp3");
 
 
 let totalPoints = localStorage.getItem("body") === null ? 0 : localStorage.getItem("body");
@@ -139,10 +139,6 @@ document.getElementById("stop-game").addEventListener("click", function () {
     usedHelp = false;
     open("./index.html", "_self");
 });
-
-// document.getElementById("help").addEventListener("click", function () {
-//     $('#myModal').modal('show')
-// });
 
 
 // function declarations

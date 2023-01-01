@@ -3,14 +3,14 @@ const filesToCache = [
     './',
     './index.html',
     './game.js',
-    './favicon512.png',
-    './favicon.png',
-    './cha-ching.mp3',
-    './failure.mp3',
-    './success-fanfare.mp3',
-    './HelveticaNowText-Medium.ttf',
+    './assets/favicon512.png',
+    './assets/favicon.png',
+    './assets/cha-ching.mp3',
+    './assets/failure.mp3',
+    './assets/success-fanfare.mp3',
+    './assets/HelveticaNowText-Medium.ttf',
     './settings.json',
-    './style.css',
+    './assets/style.css',
 ];
 
 self.addEventListener('install', event => {
