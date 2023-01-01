@@ -344,7 +344,11 @@ function checkAnswer() {
         questions.splice(currentQuestionIndex, 1);
     } else {
         questionText.innerText = "Nesprávne";
-        incorrect.play();
+        try {
+            incorrect.play();
+        } catch (error) {
+            console.error(error);
+        }
         totalPoints = 0;
         loadQuestions();
         console.log(questions);
