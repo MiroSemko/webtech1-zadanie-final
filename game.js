@@ -332,6 +332,12 @@ function checkAnswer() {
             return;
         }
         questionText.innerText = "Správne";
+        document.getElementById("answer" + String(clickedElementIndex)).style.backgroundColor = "lightgreen";
+        document.getElementById("answer-select").style.backgroundColor = "lightgreen !important";
+        document.getElementById("answer-select").classList.remove("dropped");
+        document.getElementById("answer-select").classList.add("correct");
+
+
         correct.play();
         questions.splice(currentQuestionIndex, 1);
     } else {

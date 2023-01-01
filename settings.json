@@ -73,12 +73,12 @@
           "answers": ["Gigahertz","MIPS","Flops","Nacron"],
           "correct": "2"
         },{
-          "question": "Ako nesmie byť vo Winsows pomenovaný priečinok?",
+          "question": "Ako nesmie byť vo Windows pomenovaný priečinok?",
           "answers": ["can","con","mak","make"],
           "correct": "1"
         }
       ],
-        "timer": 10
+        "timer": 5
       }
     }
   ]

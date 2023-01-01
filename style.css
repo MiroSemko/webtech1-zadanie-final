@@ -21,6 +21,17 @@
     }
 }
 
+@media screen and (max-width: 700px) {
+    #instructions {
+        width: 90% !important;
+        font-size: x-small;
+        margin-top: 10px;
+    }
+    span {
+        font-size: x-small;
+    }
+}
+
 * {
     padding: 0;
     margin: 0;
