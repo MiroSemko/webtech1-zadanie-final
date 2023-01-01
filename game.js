@@ -135,13 +135,16 @@ const clickCheck = (e) => {
 
 }
 
+
 /////////////////////////           CODE ON SCRIPT LOAD          ////////////////////////////////
 
 if (localStorage.getItem("obtiaznost") != null) {
     resume = true;
+    console.log(resume);
 }
 
 if (!resume) {
+    console.log("new game");
     buttons.forEach((element) => {
         element.addEventListener("click", function () {
             document.getElementById("game-container").style.display = "block";
@@ -156,6 +159,7 @@ if (!resume) {
         })
     });
 } else {
+    console.log("continue");
     document.getElementById("game-container").style.display = "block";
     initPageDiv.classList.add("hide");
     buttons.forEach((element) => {
@@ -235,13 +239,13 @@ function initializeShakeListener() {
     window.addEventListener(ShakeDetector.SHAKE_EVENT, onShake);
 }
 
-function loadSettings(diff, curr) {
+async function loadSettings(diff, curr) {
     dif = diff;
     cur = curr;
-    // localStorage.setItem("obtiaznost", curr);
+    localStorage.setItem("obtiaznost", curr);
     // localStorage.setItem("body", "0");
     // localStorage.setItem("otazky", "")
-    loadGame(diff, curr);
+    await loadGame(diff, curr);
 }
 
 function loadQuestions() {
@@ -256,7 +260,7 @@ function loadQuestions() {
     }
 }
 
-async function loadGame(difficulties, current) {
+function loadGame(difficulties, current) {
     let t;
     switch (current) {
         case "lahka":
@@ -279,7 +283,10 @@ async function loadGame(difficulties, current) {
             break;
     }
     loadQuestions();
-    maxPoints = questions.length;
+    if (!resume) {
+        localStorage.setItem("max_body", String(questions.length));
+    }
+    maxPoints = Number(localStorage.getItem("max_body"));
 
     answerDivs = document.querySelectorAll(".option");
 
@@ -346,25 +353,27 @@ function checkAnswer() {
             win.play();
             totalPoints = 0;
             document.getElementById("new-game").style.display = "";
+            localStorage.clear();
             return;
         }
         questionText.innerText = "Spravne";
         correct.play();
         questions.splice(currentQuestionIndex, 1);
-        localStorage.setItem("otazky", JSON.stringify(questions));
     } else {
         questionText.innerText = "Nespravne";
         incorrect.play();
         totalPoints = 0;
         loadQuestions();
         console.log(questions);
-        localStorage.setItem("otazky", JSON.stringify(questions));
         document.getElementById("score").innerText = Number(totalPoints) + "/" + maxPoints;
     }
-    if (questions.length === 0) {
-        document.getElementById("repeat").style.display = "";
-        return;
-    }
+    localStorage.setItem("body", String(totalPoints));
+    localStorage.setItem("otazky", JSON.stringify(questions));
+
+    // if (questions.length === 0) {
+    //     document.getElementById("repeat").style.display = "";
+    //     return;
+    // }
     document.getElementById("next").style.display = "";
 }
 

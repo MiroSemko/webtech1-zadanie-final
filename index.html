@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-    <meta name="theme-color" content="#000000">
-    <title>PWA Game</title>
+    <meta content="#000000" name="theme-color">
+    <title>Quiz me!</title>
     <link href="./favicon512.png" rel="icon" type="image/x-icon">
     <link href="./manifest.json" rel="manifest">
-    <link rel="apple-touch-icon" href="./favicon.png">
+    <link href="./favicon.png" rel="apple-touch-icon">
     <link href="./style.css" rel="stylesheet">
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
@@ -67,7 +67,18 @@
     <button class="start m-2" id="start-medium" value="stredna">Stredná</button>
     <button class="start m-2" id="start-hard" value="tazka">Tažká</button>
 
-    <div id="instructions">
+    <div id="instructions" style="width: 50%;background-color: #e3e3e3;padding: 10px; border-radius: 10px;margin-top: 30px; text-align: justify;color: black">
+        Začnite výberom obtiažnosti. Na výber sú možnosti Ľahká, Stredná a Ťažká. V závislosti od vybranej obtiažnosti
+        budete mať na zodpovedanie otázky kratší čas. Výber odpovede je možný kliknutím na odpoveď alebo presunutím
+        odpovede do vyznačeného okienka. Počas hry je možné raz kliknúť na tlačidlo "Žolík" a tým využiť žolíka<span style="color: firebrick">*</span> - odstránenie
+        dvoch nesprávnych odpovedí. Túto pomôcku však môžete využiť len raz za hru! V prípade, že správne odpoviete na
+        otázku, vaše body sú navýšené o 1 bod. V prípade nesprávnej odpovede sú vaše body vynulované a otázky sa
+        obnovia, takže začínate odznova. Po dosiahnutí maximálneho počtu bodov, teda správnom zodpovedaní všetkých
+        otázok z danej obtiažnosti, je možné spustiť novú hru. Hra po každej odpovedi ukladá priebeh a počet bodov,
+        takže je možné sa k hre vrátiť aj po zatvorení okna prehliadača.<br>
+
+        <br><span style="color: firebrick">* - Na mobilnom zariadení je možné žolíka využiť "zahŕkaním" telefónu. Na Apple telefónoch s
+            iOS verziou 13.0 a vyššou je potrebné povoliť využitie senzorov na telefóne.</span>
     </div>
 </div>
 
