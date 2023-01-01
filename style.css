@@ -135,6 +135,17 @@ img {
     background-color: #FDFDFD !important;
 }
 
+.answer.correct{
+
+    border-style: solid;
+    background-color: lightgreen !important;
+}
+.answer.incorrect{
+
+    border-style: solid;
+    background-color: indianred !important;
+}
+
 
 .answer.droppable-hover{
     border-width: 5px;

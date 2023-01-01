@@ -309,13 +309,18 @@ function displayQuestion(i) {
         let existingTile = answerArea.firstChild;
         draggableDivs.appendChild(existingTile)
     }
+    answerArea.style.display = "";
 
     document.getElementById("question").style.color = "black";
     document.getElementById("question").innerText = questions[i].question;
     document.getElementById("answer0").innerText = questions[i].answers[0];
+    document.getElementById("answer0").style.backgroundColor = "#FDFDFD";
     document.getElementById("answer1").innerText = questions[i].answers[1];
+    document.getElementById("answer1").style.backgroundColor = "#FDFDFD";
     document.getElementById("answer2").innerText = questions[i].answers[2];
+    document.getElementById("answer2").style.backgroundColor = "#FDFDFD";
     document.getElementById("answer3").innerText = questions[i].answers[3];
+    document.getElementById("answer3").style.backgroundColor = "#FDFDFD";
 }
 
 function checkAnswer() {
@@ -328,6 +333,7 @@ function checkAnswer() {
             win.play();
             totalPoints = 0;
             document.getElementById("new-game").style.display = "";
+            document.getElementById("answer-select").style.display = "none";
             localStorage.clear();
             return;
         }
@@ -346,6 +352,10 @@ function checkAnswer() {
         totalPoints = 0;
         loadQuestions();
         console.log(questions);
+        document.getElementById("answer" + String(questions[currentQuestionIndex].correct)).style.backgroundColor = "lightgreen";
+        document.getElementById("answer" + clickedElementIndex).style.backgroundColor = "indianred";
+        document.getElementById("answer-select").classList.remove("dropped");
+        document.getElementById("answer-select").classList.add("incorrect");
         document.getElementById("score").innerText = Number(totalPoints) + "/" + maxPoints;
     }
     localStorage.setItem("body", String(totalPoints));
@@ -388,7 +398,9 @@ function handleGame(timerCount) {
 
     currentQuestionIndex = Math.floor(Math.random() * questions.length);
     displayQuestion(currentQuestionIndex);
-    document.getElementById("answer-select").classList.remove("dropped");
+    // document.getElementById("answer-select").classList.remove("dropped");
+    document.getElementById("answer-select").classList.remove("correct");
+    document.getElementById("answer-select").classList.remove("incorrect");
     clickedElementIndex = -1;
     const countdown = setInterval(() => {
         timerCount--;
