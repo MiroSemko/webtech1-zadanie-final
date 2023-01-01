@@ -19,6 +19,8 @@ const questionText = document.getElementById("question");
 const initPageDiv = document.querySelector(".controls-container");
 const draggableDivs = document.querySelector(".answers-div");
 const progressBar = document.querySelector('.progress-bar');
+const answerArea = document.getElementById("answer-select");
+
 
 // Sound effects used from Pixabay.com //
 const correct = new Audio("./assets/cha-ching.mp3");
@@ -60,7 +62,7 @@ const drop = (e) => {
 
     clickedElementIndex = id.slice(-1);
 
-    document.getElementById("answer-select").classList.remove("droppable-hover");
+    answerArea.classList.remove("droppable-hover");
 
 }
 
@@ -182,7 +184,6 @@ function initializeShakeListener() {
 }
 
 function dragAnswer(draggedPiece) {
-    let answerArea = document.getElementById("answer-select");
     if (answerArea.hasChildNodes()) {
         let existingTile = answerArea.firstElementChild;
         draggableDivs.appendChild(existingTile);
@@ -209,7 +210,7 @@ function dragAnswer(draggedPiece) {
     draggedPiece.style.width = "98%";
     draggedPiece.style.position = "static";
 
-    document.getElementById("answer-select").classList.add("dropped");
+    answerArea.classList.add("dropped");
 }
 
 async function loadSettings(diff, curr) {
@@ -266,11 +267,10 @@ function loadGame(difficulties, current) {
         element.addEventListener("dragstart", dragStart);
     });
 
-    document.getElementById("answer-select").addEventListener("dragover", dragOver);
-    document.getElementById("answer-select").addEventListener("drop", drop);
-
-    document.getElementById("answer-select").addEventListener("dragenter", dragEnter);
-    document.getElementById("answer-select").addEventListener("dragleave", dragLeave);
+    answerArea.addEventListener("dragover", dragOver);
+    answerArea.addEventListener("drop", drop);
+    answerArea.addEventListener("dragenter", dragEnter);
+    answerArea.addEventListener("dragleave", dragLeave);
 
     //start game
     handleGame(t);
@@ -299,7 +299,7 @@ function removeTwoOptions() {
 }
 
 function displayQuestion(i) {
-    let answerArea = document.getElementById("answer-select");
+    clickedElementIndex = null;
 
     if (answerArea.hasChildNodes()) {
         let existingTile = answerArea.firstChild;
@@ -329,15 +329,15 @@ function checkAnswer() {
             win.play();
             totalPoints = 0;
             document.getElementById("new-game").style.display = "";
-            document.getElementById("answer-select").style.display = "none";
+            answerArea.style.display = "none";
             localStorage.clear();
             return;
         }
         questionText.innerText = "Správne";
         document.getElementById("answer" + String(clickedElementIndex)).style.backgroundColor = "lightgreen";
-        document.getElementById("answer-select").style.backgroundColor = "lightgreen !important";
-        document.getElementById("answer-select").classList.remove("dropped");
-        document.getElementById("answer-select").classList.add("correct");
+        answerArea.style.backgroundColor = "lightgreen !important";
+        answerArea.classList.remove("dropped");
+        answerArea.classList.add("correct");
 
 
         correct.play();
@@ -349,9 +349,12 @@ function checkAnswer() {
         loadQuestions();
         console.log(questions);
         document.getElementById("answer" + String(questions[currentQuestionIndex].correct)).style.backgroundColor = "lightgreen";
-        document.getElementById("answer" + clickedElementIndex).style.backgroundColor = "indianred";
-        document.getElementById("answer-select").classList.remove("dropped");
-        document.getElementById("answer-select").classList.add("incorrect");
+        if (clickedElementIndex != null) {
+            console.log(clickedElementIndex)
+            document.getElementById("answer" + clickedElementIndex).style.backgroundColor = "indianred";
+            answerArea.classList.remove("dropped");
+            answerArea.classList.add("incorrect");
+        }
         document.getElementById("score").innerText = Number(totalPoints) + "/" + maxPoints;
     }
     localStorage.setItem("body", String(totalPoints));
@@ -394,10 +397,10 @@ function handleGame(timerCount) {
 
     currentQuestionIndex = Math.floor(Math.random() * questions.length);
     displayQuestion(currentQuestionIndex);
-    // document.getElementById("answer-select").classList.remove("dropped");
-    document.getElementById("answer-select").classList.remove("correct");
-    document.getElementById("answer-select").classList.remove("incorrect");
-    clickedElementIndex = -1;
+    // answerArea.classList.remove("dropped");
+    answerArea.classList.remove("correct");
+    answerArea.classList.remove("incorrect");
+    clickedElementIndex = null;
     const countdown = setInterval(() => {
         timerCount--;
         progressBar.style.width = (timerCount / maxTime) * 100 + '%';
