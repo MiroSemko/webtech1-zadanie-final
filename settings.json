@@ -3,82 +3,82 @@
     {
       "lahka": {"questions": [
         {
-          "question": "Ake je hlavne mestooooo mestooooo Rakuska?",
-          "answers": ["Vieden","Praha", "Ouagadougou", "New York"],
+          "question": "Firewall je používaný na",
+          "answers": ["Bezpečnosť","Monitoring","Prenos Dát","Overenie Dát"],
           "correct": "0"
         },{
-          "question": "Ake je hlavne mestooooo mestooooo Rakuska?",
-          "answers": ["Vieden","Praha", "Ouagadougou", "New York"],
-          "correct": "0"
+          "question": "Ktorý nie je operačný systém?",
+          "answers": ["DOS","Mac","C","Linux"],
+          "correct": "2"
         },{
-          "question": "Ake je hlavne mestooooo mestooooo Rakuska?",
-          "answers": ["Vieden","Praha", "Ouagadougou", "New York"],
-          "correct": "0"
+          "question": "1024 bitov sa rovná koľko bajtom?",
+          "answers": ["1 bajt","128 bajtov","32 bajtov","64 bajtov"],
+          "correct": "1"
         },{
-          "question": "Ake je hlavne mestooooo mestooooo Rakuska?",
-          "answers": ["Vieden","Praha", "Ouagadougou", "New York"],
-          "correct": "0"
+          "question": "Mac Operačný Systém bol vyvinutý ktorú firmou?",
+          "answers": ["IBM","Apple","Microsoft","Samsung"],
+          "correct": "1"
         },{
-          "question": "Ake je hlavne mestooooo mestooooo Rakuska?",
-          "answers": ["Vieden","Praha", "Ouagadougou", "New York"],
+          "question": ".gif je príponou akého typu súboru?",
+          "answers": ["Obrázok","Video","Audio","Text"],
           "correct": "0"
         }
       ],
-        "timer": 5
+        "timer": 15
       }
     },
     {
       "stredna": {"questions": [
         {
-          "question": "Ake je hlavne mesto mirovho empire?",
-          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
-          "correct": "0"
+          "question": "Počet bitov využitých IPv6 adresou?",
+          "answers": ["32 bitov","64 bitov","128 bitov","256 bitov"],
+          "correct": "2"
         },{
-          "question": "Ake je hlavne mesto mirovho empire?",
-          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
-          "correct": "0"
+          "question": "Ktorý bol prvý webový prehliadač (rok 1990)?",
+          "answers": ["Internet Explorer","Mosaic","Mozilla","Nexus"],
+          "correct": "3"
         },{
-          "question": "Ake je hlavne mesto mirovho empire?",
-          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
-          "correct": "0"
+          "question": "Ktorý programovací jazyk je používaný výhradne na AI?",
+          "answers": ["C","Java","J2EE","Prolog"],
+          "correct": "3"
         },{
-          "question": "Ake je hlavne mesto mirovho empire?",
-          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
-          "correct": "0"
+          "question": "Ktorý nie je na správu databázových systémov?",
+          "answers": ["MySQL","Oracle","Sybase","COBOL"],
+          "correct": "3"
         },{
-          "question": "Ake je hlavne mesto mirovho empire?",
-          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
-          "correct": "0"
+          "question": "Ktorý protokol je používaný na odosielanie e-mailov?",
+          "answers": ["HTTP","POP3","SMTP","SSH"],
+          "correct": "2"
         }
       ],
-        "timer": 5
+        "timer": 15
       }
     },
     {
       "tazka": {"questions": [
         {
-          "question": "Ake je hlavne mesto mirovho empire?",
-          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
-          "correct": "0"
+          "question": "Ktorý bol prvý search engine na internete?",
+          "answers": ["Google","Archie","Altavista","WAIS"],
+          "correct": "1"
         },{
-          "question": "Ake je hlavne mesto mirovho empire?",
-          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
-          "correct": "0"
+          "question": "Prvy počítačový vírus je známy ako",
+          "answers": ["Rabbit","Creeper Virus","Elk Cloner","SCA Virus"],
+          "correct": "1"
         },{
-          "question": "Ake je hlavne mesto mirovho empire?",
-          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
-          "correct": "0"
+          "question": "Dvoj vrstvový Blue-Ray Disk vie uložiť",
+          "answers": ["20 GB","35 GB","12 GB","50 GB"],
+          "correct": "3"
         },{
-          "question": "Ake je hlavne mesto mirovho empire?",
-          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
-          "correct": "0"
+          "question": "Jednotka na meranie výpočtovej rýchlosti superpočítačov je",
+          "answers": ["Gigahertz","MIPS","Flops","Nacron"],
+          "correct": "2"
         },{
-          "question": "Ake je hlavne mesto mirovho empire?",
-          "answers": ["Yo Mama","Praha", "Ouagadougou", "New York"],
-          "correct": "0"
+          "question": "Ako nesmie byť vo Winsows pomenovaný priečinok?",
+          "answers": ["can","con","mak","make"],
+          "correct": "1"
         }
       ],
-        "timer": 3
+        "timer": 10
       }
     }
   ]
