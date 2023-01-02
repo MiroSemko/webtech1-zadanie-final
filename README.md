@@ -7,10 +7,10 @@ The requirements consisted of:
   * basic responsiveness
   * PWA compatibility
   * drag&drop implementation
-  * compatibility with smartphones and tablets
+  * compatibility and playability on mobile devices
   * using xml or json files
   * saving progress using localStorage of browser
-  * using a phone sensor
+  * using a mobile device sensor
   * writing a basic guide
 
 #############################################
@@ -25,5 +25,5 @@ Požiadavky na projekt boli nasledujúce:
   * kompatibilita a hrateľnosť na mobilných zariadeniach
   * použitie xml alebo json súboru
   * ukladanie pokroku do localStorage prehliadača
-  * využitie senzoru na telefóne
+  * využitie senzoru na mobilnom zariadení
   * napísanie základného návodu
