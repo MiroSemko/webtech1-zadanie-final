@@ -418,3 +418,8 @@ function handleGame(timerCount) {
     }, 1000);
 }
 
+
+function displayInstructions(){
+    document.getElementById("instructions").style.display = "block";
+    document.getElementById("instruction-button").style.display = "none";
+}

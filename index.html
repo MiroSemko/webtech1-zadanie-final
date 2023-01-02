@@ -60,7 +60,7 @@
         </div>
     </div>
 </div>
-<div class="controls-container">
+<div class="controls-container min-width-100">
     <h3>QUIZ ME!</h3>
     <h5 style="display: none">Miroslav Semko & Tomáš Zaťko</h5>
 
@@ -68,8 +68,10 @@
     <button class="start m-2" id="start-medium" value="stredna">Stredná</button>
     <button class="start m-2" id="start-hard" value="tazka">Tažká</button>
 
+    <button class="start m-2" id="instruction-button" onclick="displayInstructions()">Inštrukcie</button>
+
     <div id="instructions"
-         style="width: 75%;background-color: #e3e3e3;padding: 10px; border-radius: 10px;margin-top: 30px; text-align: justify;color: black">
+         style="display: none;width: 75%;background-color: #e3e3e3;padding: 10px; border-radius: 10px;margin-top: 30px; text-align: justify;color: black">
         Začnite výberom obtiažnosti. V závislosti od vybranej obtiažnosti
         bude na zodpovedanie otázky daný čas. Výber odpovede je možný kliknutím na odpoveď alebo presunutím
         odpovede do vyznačeného okienka. Počas hry je možné raz kliknúť na tlačidlo „Žolík“ a tým využiť žolíka<span
