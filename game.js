@@ -309,14 +309,14 @@ function displayQuestion(i) {
 
     document.getElementById("question").style.color = "black";
     document.getElementById("question").innerText = questions[i].question;
-    document.getElementById("answer0").innerText = questions[i].answers[0];
-    document.getElementById("answer0").style.backgroundColor = "#FDFDFD";
-    document.getElementById("answer1").innerText = questions[i].answers[1];
-    document.getElementById("answer1").style.backgroundColor = "#FDFDFD";
-    document.getElementById("answer2").innerText = questions[i].answers[2];
-    document.getElementById("answer2").style.backgroundColor = "#FDFDFD";
-    document.getElementById("answer3").innerText = questions[i].answers[3];
-    document.getElementById("answer3").style.backgroundColor = "#FDFDFD";
+
+    let answers = ["answer0","answer1","answer2","answer3"]
+    for (let ind = 0; ind < answers.length; ind++){
+        document.getElementById(answers[ind]).style.backgroundColor = "#FDFDFD";
+        document.getElementById(answers[ind]).innerText = questions[i].answers[ind];
+        document.getElementById(answers[ind]).draggable = true;
+        document.getElementById(answers[ind]).style.pointerEvents = "auto";
+    }
 }
 
 function checkAnswer() {
@@ -361,6 +361,12 @@ function checkAnswer() {
     localStorage.setItem("otazky", JSON.stringify(questions));
 
     document.getElementById("next").style.display = "";
+
+    let answers = ["answer0","answer1","answer2","answer3"]
+    for (let ind = 0; ind < answers.length; ind++){
+        document.getElementById(answers[ind]).draggable = false;
+        document.getElementById(answers[ind]).style.pointerEvents = "none";
+    }
 }
 
 function handleGame(timerCount) {
